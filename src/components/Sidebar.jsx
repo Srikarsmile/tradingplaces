@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, Theater, ClipboardCheck, FileText, HeartPulse, X, Menu, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/trading-places-simulator-1.png";
@@ -9,6 +9,12 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { signOut, username, isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -101,26 +107,27 @@ export default function Sidebar() {
         </nav>
 
         <div className="mt-auto pt-6 border-t border-[var(--surface-500)] flex flex-col gap-4">
-          {!loading && isAuthenticated && (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[var(--surface-600)] flex items-center justify-center text-[var(--accent-cyan)] font-bold text-xs ring-1 ring-[var(--surface-500)]">
-                  {username ? username.charAt(0).toUpperCase() : "U"}
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[13px] font-medium text-[var(--text-primary)] leading-tight">{username || "Practitioner"}</span>
-                  <span className="text-[10px] text-[var(--text-tertiary)]">Interactive practice</span>
-                </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-[var(--surface-600)] flex items-center justify-center text-[var(--accent-cyan)] font-bold text-xs ring-1 ring-[var(--surface-500)]">
+                {(username || "D").charAt(0).toUpperCase()}
               </div>
-              <button
-                onClick={signOut}
-                className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-rose)] hover:bg-[var(--accent-rose-subtle)] rounded-lg transition-colors"
-                aria-label="Sign out"
-              >
-                <LogOut size={16} />
-              </button>
+              <div className="flex flex-col">
+                <span className="text-[13px] font-medium text-[var(--text-primary)] leading-tight">
+                  {username || "Demo User"}
+                </span>
+                <span className="text-[10px] text-[var(--text-tertiary)]">Interactive practice</span>
+              </div>
             </div>
-          )}
+            <button
+              onClick={handleSignOut}
+              className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-rose)] hover:bg-[var(--accent-rose-subtle)] rounded-lg transition-colors"
+              aria-label="Sign out"
+              title="Sign out"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
           <div className="text-[10px] text-center text-[var(--text-tertiary)]">
             © 2025 LSBU Prototype
           </div>
