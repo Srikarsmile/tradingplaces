@@ -625,6 +625,63 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* ═══════════════════════════
+   MARQUEE ANIMATION
+   ═══════════════════════════ */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════
+   HERO GRID
+   ═══════════════════════════ */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Hide floating badges and mockup section on small screens */
+.hero-badge {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .hero-badge {
+    display: flex;
+  }
+}
+
+/* ═══════════════════════════
+   BENTO GRID
+   ═══════════════════════════ */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bento-span-2 {
+    grid-column: span 2;
+  }
+}
+
+/* ═══════════════════════════
    HOW-IT-WORKS LAYOUT
    ═══════════════════════════ */
 
