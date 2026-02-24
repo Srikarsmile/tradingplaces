@@ -49,8 +49,8 @@ export default function Sidebar() {
         className={`w-64 h-screen p-6 flex flex-col fixed z-30 transition-transform duration-300 border-r border-[var(--glass-border)] ${isMobile ? (isOpen ? "translate-x-0" : "-translate-x-full") : ""
           }`}
         style={{
-          background: "linear-gradient(180deg, rgba(22,25,34,0.98), rgba(13,15,19,0.99))",
-          borderRight: "1px solid rgba(56,189,248,0.08)",
+          background: "linear-gradient(180deg, #f8f5ef, #f5f1ea)",
+          borderRight: "1px solid rgba(0,0,0,0.07)",
         }}
       >
         <div className="flex items-center justify-between mb-8">
@@ -59,7 +59,7 @@ export default function Sidebar() {
               src={logo}
               alt="logo"
               className="w-8 h-8 object-contain"
-              style={{ filter: "drop-shadow(0 0 8px rgba(56, 189, 248, 0.35))" }}
+              style={{ filter: "drop-shadow(0 2px 6px rgba(30, 45, 62, 0.18))" }}
             />
             <span className="text-[15px] font-semibold tracking-tight text-[var(--text-primary)]">
               Trading Places

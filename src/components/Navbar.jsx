@@ -29,9 +29,9 @@ export default function Navbar() {
   return (
     <nav className="w-full backdrop-blur-xl text-[var(--text-primary)] h-16 fixed top-0 left-0 z-50"
       style={{
-        background: "rgba(19, 21, 27, 0.88)",
-        borderBottom: "1px solid rgba(255,255,255,0.07)",
-        boxShadow: "0 1px 0 0 rgba(56,189,248,0.06), 0 4px 24px rgba(0,0,0,0.28)",
+        background: "rgba(245, 241, 234, 0.94)",
+        borderBottom: "1px solid rgba(0,0,0,0.08)",
+        boxShadow: "0 1px 0 0 rgba(0,0,0,0.04), 0 4px 20px rgba(0,0,0,0.05)",
       }}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-full">
@@ -44,7 +44,7 @@ export default function Navbar() {
             src={logo}
             alt="logo"
             className="w-9 h-9 object-contain"
-            style={{ filter: "drop-shadow(0 0 8px rgba(56, 189, 248, 0.35))" }}
+            style={{ filter: "drop-shadow(0 2px 6px rgba(30, 45, 62, 0.18))" }}
           />
           <span className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
             Trading Places

@@ -64,16 +64,16 @@ export default function Home() {
         {/* Ambient orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
-            className="absolute top-[-5%] right-[5%] w-[640px] h-[640px] rounded-full blur-[180px] opacity-[0.07] animate-float"
-            style={{ background: "radial-gradient(circle, #38bdf8 0%, #0ea5e9 60%, transparent 100%)" }}
+            className="absolute top-[-5%] right-[5%] w-[640px] h-[640px] rounded-full blur-[180px] opacity-[0.45] animate-float"
+            style={{ background: "radial-gradient(circle, #e8d5c0 0%, #d4b896 60%, transparent 100%)" }}
           />
           <div
-            className="absolute bottom-[0%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-[0.05] animate-float"
-            style={{ background: "radial-gradient(circle, #fb923c 0%, #f97316 60%, transparent 100%)", animationDelay: "3.5s" }}
+            className="absolute bottom-[0%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-[0.3] animate-float"
+            style={{ background: "radial-gradient(circle, #c4e0d4 0%, #a8c8bc 60%, transparent 100%)", animationDelay: "3.5s" }}
           />
           <div
-            className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[120px] opacity-[0.04] animate-float"
-            style={{ background: "radial-gradient(circle, #60a5fa 0%, transparent 100%)", animationDelay: "1.5s" }}
+            className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[120px] opacity-[0.2] animate-float"
+            style={{ background: "radial-gradient(circle, #e0d4c4 0%, transparent 100%)", animationDelay: "1.5s" }}
           />
         </div>
 
@@ -84,8 +84,8 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in-up"
                 style={{
-                  background: "linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(249,115,22,0.07) 100%)",
-                  border: "1px solid rgba(56,189,248,0.22)",
+                  background: "rgba(30,45,62,0.06)",
+                  border: "1px solid rgba(30,45,62,0.14)",
                 }}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse-glow" />
@@ -95,7 +95,7 @@ export default function Home() {
               </div>
 
               <h1
-                className="text-5xl sm:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold tracking-[-0.04em] leading-[1.05] animate-fade-in-up"
+                className="font-display text-5xl sm:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-bold tracking-[-0.02em] leading-[1.08] animate-fade-in-up"
                 style={{ animationDelay: "60ms" }}
               >
                 <span className="text-[var(--text-primary)]">Build empathy</span>
@@ -147,12 +147,12 @@ export default function Home() {
               className="relative animate-fade-in-up hidden lg:block"
               style={{ animationDelay: "200ms" }}
             >
-              {/* Outer glow ring */}
+              {/* Outer hairline border ring */}
               <div
                 className="absolute -inset-px rounded-2xl pointer-events-none"
                 style={{
-                  background: "linear-gradient(135deg, rgba(56,189,248,0.2) 0%, rgba(249,115,22,0.12) 100%)",
-                  filter: "blur(1px)",
+                  background: "linear-gradient(135deg, rgba(30,45,62,0.14) 0%, rgba(196,144,106,0.1) 100%)",
+                  filter: "blur(0.5px)",
                 }}
               />
               <div className="glass-card-elevated p-8 relative overflow-hidden">
@@ -164,8 +164,8 @@ export default function Home() {
                   {/* Header */}
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, rgba(56,189,248,0.15), rgba(249,115,22,0.1))", border: "1px solid rgba(56,189,248,0.22)" }}>
-                      <img src={logo} alt="Trading Places" className="w-8 h-8 object-contain" style={{ filter: "drop-shadow(0 0 6px rgba(56, 189, 248, 0.35))" }} />
+                      style={{ background: "linear-gradient(135deg, rgba(30,45,62,0.08), rgba(196,144,106,0.06))", border: "1px solid rgba(30,45,62,0.14)" }}>
+                      <img src={logo} alt="Trading Places" className="w-8 h-8 object-contain" style={{ filter: "drop-shadow(0 2px 6px rgba(30, 45, 62, 0.2))" }} />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[var(--text-primary)]">Trading Places</p>
@@ -221,7 +221,7 @@ export default function Home() {
                         style={{
                           width: "84%",
                           background: "linear-gradient(90deg, var(--accent-cyan), var(--accent-pink))",
-                          boxShadow: "0 0 12px rgba(56, 189, 248, 0.35)",
+                          boxShadow: "0 2px 10px rgba(30, 45, 62, 0.15)",
                           animation: "progress-fill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
                         }}
                       />
@@ -235,27 +235,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── STATS BAR ──────── */}
-      <section className="relative border-y border-[var(--glass-border)]"
-        style={{ background: "linear-gradient(90deg, rgba(13,11,26,0.6), rgba(19,17,40,0.4), rgba(13,11,26,0.6))" }}>
+      {/* ──────── STATS BAR — dark editorial strip ──────── */}
+      <section className="relative" style={{ background: "#1e2d3e" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center">
                 <p
-                  className="text-3xl md:text-4xl font-extrabold font-mono tracking-tight"
+                  className="font-display text-3xl md:text-4xl font-bold tracking-tight"
                   style={{
-                    background: i % 2 === 0
-                      ? "linear-gradient(135deg, var(--accent-cyan), #a78bfa)"
-                      : "linear-gradient(135deg, var(--accent-pink), #fbbf24)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
+                    color: i % 2 === 0 ? "#f5f1ea" : "#c4906a",
                   }}
                 >
                   {stat.value}
                 </p>
-                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-tertiary)] mt-1.5 font-semibold">
+                <p className="text-xs uppercase tracking-[0.1em] mt-1.5 font-semibold" style={{ color: "rgba(245,241,234,0.45)" }}>
                   {stat.label}
                 </p>
               </div>
@@ -269,7 +263,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-2xl mb-20">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(56,189,248,0.08)", border: "1px solid rgba(56,189,248,0.18)" }}>
+              style={{ background: "rgba(30,45,62,0.06)", border: "1px solid rgba(30,45,62,0.14)" }}>
               <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-cyan)" }}>
                 What you can do
               </span>
@@ -319,7 +313,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.18)" }}>
+              style={{ background: "rgba(196,144,106,0.1)", border: "1px solid rgba(196,144,106,0.22)" }}>
               <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-pink)" }}>
                 How it works
               </span>
@@ -387,7 +381,7 @@ export default function Home() {
         <div className="absolute inset-0 pointer-events-none">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[220px] opacity-[0.05]"
-            style={{ background: "radial-gradient(circle, #38bdf8 0%, #fb923c 60%, transparent 100%)" }}
+            style={{ background: "radial-gradient(circle, #e8d5c0 0%, #d4b896 60%, transparent 100%)" }}
           />
         </div>
 
@@ -395,7 +389,7 @@ export default function Home() {
         <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8">
           <div className="glass-card-premium p-12 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
-              style={{ background: "rgba(56,189,248,0.08)", border: "1px solid rgba(56,189,248,0.18)" }}>
+              style={{ background: "rgba(30,45,62,0.06)", border: "1px solid rgba(30,45,62,0.14)" }}>
               <Sparkles size={12} style={{ color: "var(--accent-cyan)" }} />
               <span className="text-[11px] font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
                 Start your journey
@@ -426,8 +420,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, rgba(56,189,248,0.15), rgba(249,115,22,0.1))", border: "1px solid rgba(56,189,248,0.22)" }}>
-              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 0 4px rgba(56, 189, 248, 0.4))" }} />
+              style={{ background: "linear-gradient(135deg, rgba(30,45,62,0.08), rgba(196,144,106,0.06))", border: "1px solid rgba(30,45,62,0.14)" }}>
+              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 2px 4px rgba(30, 45, 62, 0.2))" }} />
             </div>
             <span className="text-sm font-semibold text-[var(--text-secondary)]">Trading Places</span>
           </div>

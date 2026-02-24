@@ -7,23 +7,24 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        sans:    ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"DM Serif Display"', 'Georgia', 'serif'],
+        mono:    ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
         surface: {
-          900: '#0c0d11',
-          800: '#13151b',
-          700: '#1a1d25',
-          600: '#21252f',
-          500: '#2a2f3c',
-          400: '#343a48',
+          900: '#f5f1ea',
+          800: '#ffffff',
+          700: '#ede9e0',
+          600: '#e4ded3',
+          500: '#c8c2b6',
+          400: '#9e9890',
         },
         accent: {
-          sky: '#38bdf8',
-          'sky-dim': '#0ea5e9',
-          coral: '#fb923c',
-          'coral-dim': '#f97316',
+          charcoal: '#1e2d3e',
+          'charcoal-dim': '#15222f',
+          caramel:  '#c4906a',
+          'caramel-dim': '#a97752',
         },
       },
     },
