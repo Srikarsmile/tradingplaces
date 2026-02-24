@@ -252,7 +252,7 @@ export default function Scenario() {
                   className="h-full bg-[var(--accent-cyan)] rounded-full"
                   style={{
                     width: `${dialogueProgress}%`,
-                    boxShadow: "0 0 8px rgba(0, 229, 255, 0.3)",
+                    boxShadow: "0 0 8px rgba(56, 189, 248, 0.3)",
                   }}
                 />
               </div>
