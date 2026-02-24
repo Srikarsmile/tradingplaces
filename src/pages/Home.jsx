@@ -494,14 +494,15 @@ export default function Home() {
                     style={{
                       height: "100%",
                       background:
-                        "linear-gradient(135deg,rgba(13,11,26,0.92),rgba(19,17,40,0.75))",
-                      backdropFilter: "blur(28px)",
+                        "linear-gradient(135deg,rgba(13,11,26,0.52),rgba(19,17,40,0.42))",
+                      backdropFilter: "blur(20px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(20px) saturate(180%)",
                       borderRadius: "20px",
                       padding: "32px",
-                      border: "1px solid rgba(255,255,255,0.055)",
+                      border: "1px solid rgba(255,255,255,0.08)",
                       position: "relative",
                       overflow: "hidden",
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
                     }}
                   >
                     {/* Ghost number */}
@@ -648,6 +649,23 @@ export default function Home() {
                   style={{ transitionDelay: `${i * 150}ms` }}
                   className="step-item"
                 >
+                  {/* Glass card wrapper */}
+                  <div
+                    style={{
+                      background: "linear-gradient(135deg,rgba(13,11,26,0.52),rgba(19,17,40,0.42))",
+                      backdropFilter: "blur(20px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: "20px",
+                      padding: "32px",
+                      height: "100%",
+                      position: "relative",
+                      overflow: "hidden",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
+                    }}
+                  >
+                  {/* Top accent glow line */}
+                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: `linear-gradient(90deg,transparent,${s.accent}50,transparent)` }} />
                   {/* Circle */}
                   <div
                     style={{
@@ -707,6 +725,7 @@ export default function Home() {
                   >
                     {s.desc}
                   </p>
+                  </div>{/* end glass wrapper */}
                 </div>
               ))}
             </div>
@@ -719,9 +738,6 @@ export default function Home() {
             padding: "80px 32px",
             borderTop: "1px solid var(--glass-border)",
             borderBottom: "1px solid var(--glass-border)",
-            background:
-              "linear-gradient(90deg,rgba(7,6,15,0.85),rgba(19,17,40,0.6),rgba(7,6,15,0.85))",
-            backdropFilter: "blur(20px)",
           }}
         >
           <div
@@ -729,9 +745,8 @@ export default function Home() {
               maxWidth: "1280px",
               margin: "0 auto",
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))",
-              gap: "40px",
-              textAlign: "center",
+              gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
+              gap: "20px",
             }}
           >
             {stats.map((s, i) => (
@@ -740,33 +755,51 @@ export default function Home() {
                 data-reveal
                 style={{ transitionDelay: `${i * 90}ms` }}
               >
-                <p
+                {/* Glass stat card */}
+                <div
                   style={{
-                    fontSize: "clamp(2.8rem,6vw,4rem)",
-                    fontWeight: 900,
-                    fontFamily: "monospace",
-                    letterSpacing: "-0.04em",
-                    background: `linear-gradient(135deg,${s.accent},${s.grad})`,
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    lineHeight: 1,
-                    marginBottom: "10px",
+                    background: "linear-gradient(135deg,rgba(13,11,26,0.52),rgba(19,17,40,0.42))",
+                    backdropFilter: "blur(20px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "20px",
+                    padding: "32px 24px",
+                    textAlign: "center",
+                    position: "relative",
+                    overflow: "hidden",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
                   }}
                 >
-                  {s.val}
-                </p>
-                <p
-                  style={{
-                    fontSize: "11px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    color: "var(--text-tertiary)",
-                    fontWeight: 600,
-                  }}
-                >
-                  {s.label}
-                </p>
+                  {/* Top accent line */}
+                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: `linear-gradient(90deg,transparent,${s.accent}60,transparent)` }} />
+                  <p
+                    style={{
+                      fontSize: "clamp(2.8rem,6vw,3.8rem)",
+                      fontWeight: 900,
+                      fontFamily: "monospace",
+                      letterSpacing: "-0.04em",
+                      background: `linear-gradient(135deg,${s.accent},${s.grad})`,
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      lineHeight: 1,
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {s.val}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "var(--text-tertiary)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {s.label}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -798,14 +831,15 @@ export default function Home() {
             <div
               style={{
                 background:
-                  "linear-gradient(135deg,rgba(13,11,26,0.94),rgba(19,17,40,0.82))",
-                backdropFilter: "blur(36px)",
+                  "linear-gradient(135deg,rgba(13,11,26,0.55),rgba(19,17,40,0.45))",
+                backdropFilter: "blur(28px) saturate(180%)",
+                WebkitBackdropFilter: "blur(28px) saturate(180%)",
                 borderRadius: "28px",
                 padding: "clamp(48px,8vw,80px)",
                 textAlign: "center",
                 border: "1px solid rgba(129,140,248,0.18)",
                 boxShadow:
-                  "0 0 0 1px rgba(251,113,133,0.06), 0 40px 80px rgba(0,0,0,0.5)",
+                  "0 0 0 1px rgba(251,113,133,0.06), 0 40px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
                 position: "relative",
                 overflow: "hidden",
               }}

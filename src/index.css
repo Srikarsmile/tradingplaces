@@ -642,19 +642,20 @@ input[type="range"]::-moz-range-thumb {
   }
 
   .step-item {
-    padding-right: 40px;
     position: relative;
   }
 
-  /* Connecting line between steps */
+  /* Connecting line drawn between glass cards at mid-height of circle */
   .step-item:not(:last-child)::after {
     content: '';
     position: absolute;
-    top: 29px; /* centre of the 60px circle */
-    right: 0;
-    width: calc(100% - 100px);
+    /* 32px card padding + 30px (half of 60px circle) = 62px from card top */
+    top: 62px;
+    right: -10px;
+    width: 20px;
     height: 1px;
-    background: linear-gradient(90deg, rgba(129,140,248,0.35), rgba(251,113,133,0.25));
+    background: linear-gradient(90deg, rgba(129,140,248,0.4), rgba(251,113,133,0.3));
+    z-index: 1;
   }
 }
 
