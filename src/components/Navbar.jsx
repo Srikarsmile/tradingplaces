@@ -27,7 +27,13 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="w-full bg-[var(--surface-800)]/80 backdrop-blur-xl text-[var(--text-primary)] h-16 border-b border-[var(--glass-border)] fixed top-0 left-0 z-50">
+    <nav className="w-full backdrop-blur-xl text-[var(--text-primary)] h-16 fixed top-0 left-0 z-50"
+      style={{
+        background: "rgba(13, 11, 26, 0.85)",
+        borderBottom: "1px solid rgba(255,255,255,0.05)",
+        boxShadow: "0 1px 0 0 rgba(129,140,248,0.06), 0 4px 24px rgba(0,0,0,0.3)",
+      }}
+    >
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-full">
         <button
           onClick={() => handleLinkClick("/")}
@@ -38,7 +44,7 @@ export default function Navbar() {
             src={logo}
             alt="logo"
             className="w-9 h-9 object-contain"
-            style={{ filter: "drop-shadow(0 0 8px rgba(0, 229, 255, 0.3))" }}
+            style={{ filter: "drop-shadow(0 0 8px rgba(129, 140, 248, 0.4))" }}
           />
           <span className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
             Trading Places
@@ -51,10 +57,10 @@ export default function Navbar() {
             <Link
               key={item.to}
               to={item.to}
-              className={`relative py-1 transition-colors hover:text-[var(--text-primary)] after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:bg-[var(--accent-cyan)] after:transition-all after:duration-300 ${
+              className={`relative py-1 transition-colors hover:text-[var(--text-primary)] after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:rounded-full after:transition-all after:duration-300 ${
                 isActive(item.to)
-                  ? "text-[var(--accent-cyan)] after:w-full"
-                  : "text-[var(--text-secondary)] after:w-0 hover:after:w-full"
+                  ? "text-[var(--accent-cyan)] after:w-full after:bg-gradient-to-r after:from-[var(--accent-cyan)] after:to-[var(--accent-pink)]"
+                  : "text-[var(--text-secondary)] after:w-0 hover:after:w-full hover:after:bg-[var(--accent-cyan)]"
               }`}
             >
               {item.label}

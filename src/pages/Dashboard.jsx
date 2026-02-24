@@ -14,8 +14,8 @@ const quickLinks = [
 ];
 
 const COLORS = {
-  understanding: "#00e5ff",
-  empathy: "#ff4ebe",
+  understanding: "#818cf8",
+  empathy: "#fb7185",
   clarity: "#34d399",
 };
 
