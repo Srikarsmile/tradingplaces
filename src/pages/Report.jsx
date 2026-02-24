@@ -332,7 +332,7 @@ export default function Report() {
               <li key={idx} className="flex items-start gap-2">
                 <span
                   className="mt-1.5 h-2 w-2 rounded-full bg-[var(--accent-pink)] shrink-0"
-                  style={{ boxShadow: "0 0 6px rgba(255, 78, 190, 0.4)" }}
+                  style={{ boxShadow: "0 0 6px rgba(217, 119, 86, 0.35)" }}
                 />
                 <span>{item}</span>
               </li>

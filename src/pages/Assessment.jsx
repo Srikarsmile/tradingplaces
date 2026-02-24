@@ -36,7 +36,7 @@ function SignalBar({ signal, showRerun, rerunScore }) {
     const getToneStyle = (score) => {
         if (score >= 2) return { bg: "linear-gradient(90deg, #34d399, #10b981)", shadow: "0 0 12px rgba(52, 211, 153, 0.3)", badge: "bg-[var(--accent-emerald-subtle)] text-[var(--accent-emerald)]" };
         if (score >= 1) return { bg: "linear-gradient(90deg, #fbbf24, #f59e0b)", shadow: "0 0 12px rgba(251, 191, 36, 0.3)", badge: "bg-[var(--accent-amber-subtle)] text-[var(--accent-amber)]" };
-        return { bg: "linear-gradient(90deg, #f43f5e, #e11d48)", shadow: "0 0 12px rgba(244, 63, 94, 0.3)", badge: "bg-[var(--accent-rose-subtle)] text-[var(--accent-rose)]" };
+        return { bg: "linear-gradient(90deg, #ef4444, #dc2626)", shadow: "0 0 12px rgba(239, 68, 68, 0.3)", badge: "bg-[var(--accent-rose-subtle)] text-[var(--accent-rose)]" };
     };
 
     const tone = getToneStyle(signal.score);
@@ -256,7 +256,7 @@ export default function Assessment() {
                     <div className="flex-1 h-2 bg-[var(--surface-500)] rounded-full overflow-hidden">
                         <div
                             className="h-full bg-[var(--accent-cyan)] rounded-full"
-                            style={{ width: `${progress}%`, boxShadow: "0 0 8px rgba(0, 229, 255, 0.3)" }}
+                            style={{ width: `${progress}%`, boxShadow: "0 0 8px rgba(110, 231, 183, 0.3)" }}
                         />
                     </div>
                     <span className="text-sm font-mono font-semibold text-[var(--text-tertiary)]">

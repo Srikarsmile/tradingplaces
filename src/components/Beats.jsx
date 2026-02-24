@@ -9,7 +9,7 @@ function Beats({ title, beats }) {
           <li key={idx} className="flex gap-3 items-start">
             <span
               className="mt-1.5 h-2 w-2 rounded-full bg-[var(--accent-cyan)] shrink-0"
-              style={{ boxShadow: "0 0 6px rgba(0, 229, 255, 0.4)" }}
+              style={{ boxShadow: "0 0 6px rgba(110, 231, 183, 0.35)" }}
               aria-hidden="true"
             />
             <span>{line}</span>

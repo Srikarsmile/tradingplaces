@@ -11,7 +11,7 @@ export default function LoadingSpinner({ size = "md", text = "Loading..." }) {
     <div className="flex flex-col items-center justify-center gap-3 p-6">
       <div
         className={`${sizeClasses[size]} border-2 border-[var(--surface-500)] border-t-[var(--accent-cyan)] rounded-full animate-spin`}
-        style={{ filter: "drop-shadow(0 0 6px rgba(0, 229, 255, 0.3))" }}
+        style={{ filter: "drop-shadow(0 0 6px rgba(110, 231, 183, 0.3))" }}
         role="status"
         aria-label="Loading"
       />

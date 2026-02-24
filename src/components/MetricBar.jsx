@@ -10,8 +10,8 @@ const toneStyles = {
     shadow: "0 0 12px rgba(251, 191, 36, 0.3)",
   },
   low: {
-    bg: "linear-gradient(90deg, #f43f5e, #e11d48)",
-    shadow: "0 0 12px rgba(244, 63, 94, 0.3)",
+    bg: "linear-gradient(90deg, #ef4444, #dc2626)",
+    shadow: "0 0 12px rgba(239, 68, 68, 0.3)",
   },
 };
 
