@@ -608,6 +608,57 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* ═══════════════════════════
+   SCROLL REVEAL SYSTEM
+   ═══════════════════════════ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity  0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════
+   HOW-IT-WORKS LAYOUT
+   ═══════════════════════════ */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .step-item {
+    padding-right: 40px;
+    position: relative;
+  }
+
+  /* Connecting line between steps */
+  .step-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 29px; /* centre of the 60px circle */
+    right: 0;
+    width: calc(100% - 100px);
+    height: 1px;
+    background: linear-gradient(90deg, rgba(129,140,248,0.35), rgba(251,113,133,0.25));
+  }
+}
+
+/* ═══════════════════════════
    REDUCED MOTION
    ═══════════════════════════ */
 
@@ -619,5 +670,11 @@ input[type="range"]::-moz-range-thumb {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

@@ -1,441 +1,994 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Theater, BarChart3, ClipboardCheck, HeartPulse, FileText, Sparkles, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  Theater,
+  BarChart3,
+  ClipboardCheck,
+  HeartPulse,
+  FileText,
+  Sparkles,
+} from "lucide-react";
 import logo from "../assets/trading-places-simulator-1.png";
+import ThreeBackground from "../components/ThreeBackground";
+
+// ── Data ──────────────────────────────────────────────────────────────────────
 
 const features = [
   {
     icon: Theater,
     title: "Interactive Roleplay",
-    description: "Step into real scenarios as both customer and manager. Choose responses and watch empathy metrics shift in real time.",
-    accent: "var(--accent-cyan)",
+    description:
+      "Step into real scenarios as both customer and manager. Choose responses and watch empathy metrics shift in real time.",
+    accent: "#818cf8",
+    num: "01",
   },
   {
     icon: BarChart3,
     title: "Live Metrics Dashboard",
-    description: "Track understanding, empathy, and clarity signals across every practice session with visual analytics.",
-    accent: "var(--accent-pink)",
+    description:
+      "Track understanding, empathy, and clarity signals across every practice session with visual analytics.",
+    accent: "#fb7185",
+    num: "02",
   },
   {
     icon: ClipboardCheck,
     title: "Behaviour Assessment",
-    description: "Complete structured assessments, review flagged moments, and re-run with coaching cues to improve.",
-    accent: "var(--accent-emerald)",
+    description:
+      "Complete structured assessments, review flagged moments, and re-run with coaching cues to improve.",
+    accent: "#34d399",
+    num: "03",
   },
   {
     icon: HeartPulse,
     title: "Culture Pulse Signals",
-    description: "Learn the three behaviours that keep teams safe: curiosity, inclusion, and clarity.",
-    accent: "var(--accent-amber)",
+    description:
+      "Learn the three behaviours that keep teams safe: curiosity, inclusion, and clarity.",
+    accent: "#fbbf24",
+    num: "04",
   },
   {
     icon: FileText,
     title: "Export-Ready Reports",
-    description: "Generate PDF reports with your scores, reflections, and improvement tips for coaching sessions.",
-    accent: "var(--accent-cyan)",
+    description:
+      "Generate PDF reports with your scores, reflections, and improvement tips for coaching sessions.",
+    accent: "#818cf8",
+    num: "05",
   },
   {
     icon: Sparkles,
     title: "Guided Reflection",
-    description: "Capture what shifted when you swapped roles. Build reusable scripts for real workplace interactions.",
-    accent: "var(--accent-pink)",
+    description:
+      "Capture what shifted when you swapped roles. Build reusable scripts for real workplace interactions.",
+    accent: "#fb7185",
+    num: "06",
+  },
+];
+
+const pillars = [
+  { label: "Psychological safety",       color: "#818cf8" },
+  { label: "Cross-cultural intelligence", color: "#fb7185" },
+  { label: "Active listening practice",  color: "#a78bfa" },
+  { label: "Measurable empathy metrics", color: "#34d399" },
+];
+
+const steps = [
+  {
+    num: "01",
+    title: "Practice scenarios",
+    desc: "Enter interactive roleplay as both customer and manager. Your choices at each turn shape your empathy score in real time.",
+    accent: "#818cf8",
+  },
+  {
+    num: "02",
+    title: "Review & reflect",
+    desc: "See your behaviour signals, connection scores, and flagged moments. Capture reflections and build a library of what works.",
+    accent: "#fb7185",
+  },
+  {
+    num: "03",
+    title: "Improve & share",
+    desc: "Re-run flagged moments with coaching cues. Export your progress as a PDF report for peer reviews or coaching sessions.",
+    accent: "#34d399",
   },
 ];
 
 const stats = [
-  { value: "3+", label: "Scenario types" },
-  { value: "6", label: "Behaviour signals" },
-  { value: "Real-time", label: "Empathy tracking" },
-  { value: "PDF", label: "Report export" },
+  { val: "3+",       label: "Scenario types",    accent: "#818cf8", grad: "#a78bfa" },
+  { val: "6",        label: "Behaviour signals",  accent: "#fb7185", grad: "#fbbf24" },
+  { val: "100%",     label: "Real-time metrics",  accent: "#a78bfa", grad: "#818cf8" },
+  { val: "PDF",      label: "Export format",      accent: "#34d399", grad: "#818cf8" },
 ];
 
-const pillars = [
-  "Psychological safety",
-  "Cross-cultural intelligence",
-  "Active listening practice",
-  "Measurable empathy metrics",
-];
+// ── 3-D Tilt Card ─────────────────────────────────────────────────────────────
+
+function TiltCard({ children, style = {} }) {
+  const ref = useRef(null);
+
+  const onMove = (e) => {
+    const el = ref.current;
+    const r  = el.getBoundingClientRect();
+    const rx = ((e.clientY - r.top  - r.height / 2) / r.height) * -12;
+    const ry = ((e.clientX - r.left - r.width  / 2) / r.width ) *  12;
+    el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(12px)`;
+  };
+
+  const onLeave = () => {
+    ref.current.style.transform =
+      "perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
+  };
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        transformStyle: "preserve-3d",
+        transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)",
+      }}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ── Scroll-reveal hook ────────────────────────────────────────────────────────
+
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll("[data-reveal]");
+    const io  = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("revealed");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
+// ── Home ──────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  useReveal();
+
   return (
-    <div className="bg-[var(--surface-900)] min-h-screen">
-      {/* ──────── HERO ──────── */}
-      <section className="relative pt-36 pb-28 lg:pt-44 lg:pb-36 overflow-hidden">
-        {/* Ambient orbs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <>
+      <ThreeBackground />
+
+      {/* Content layer sits above Three.js canvas (z-0) and below Navbar (z-50) */}
+      <div style={{ position: "relative", zIndex: 10 }}>
+
+        {/* ══ HERO ══════════════════════════════════════════════════════════ */}
+        <section
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "100px 24px 80px",
+            position: "relative",
+          }}
+        >
+          {/* Badge */}
           <div
-            className="absolute top-[-5%] right-[5%] w-[640px] h-[640px] rounded-full blur-[180px] opacity-[0.07] animate-float"
-            style={{ background: "radial-gradient(circle, #818cf8 0%, #6366f1 60%, transparent 100%)" }}
-          />
-          <div
-            className="absolute bottom-[0%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-[0.05] animate-float"
-            style={{ background: "radial-gradient(circle, #fb7185 0%, #f43f5e 60%, transparent 100%)", animationDelay: "3.5s" }}
-          />
-          <div
-            className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[120px] opacity-[0.04] animate-float"
-            style={{ background: "radial-gradient(circle, #a78bfa 0%, transparent 100%)", animationDelay: "1.5s" }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left — copy */}
-            <div>
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in-up"
-                style={{
-                  background: "linear-gradient(135deg, rgba(129,140,248,0.1) 0%, rgba(251,113,133,0.08) 100%)",
-                  border: "1px solid rgba(129,140,248,0.2)",
-                }}
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse-glow" />
-                <span className="text-xs font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
-                  Empathy training platform
-                </span>
-              </div>
-
-              <h1
-                className="text-5xl sm:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold tracking-[-0.04em] leading-[1.05] animate-fade-in-up"
-                style={{ animationDelay: "60ms" }}
-              >
-                <span className="text-[var(--text-primary)]">Build empathy</span>
-                <br />
-                <span className="text-gradient">that changes</span>
-                <br />
-                <span className="text-[var(--text-primary)]">how teams </span>
-                <span className="text-gradient-warm">connect</span>
-              </h1>
-
-              <p
-                className="text-lg text-[var(--text-secondary)] mt-7 max-w-xl leading-relaxed animate-fade-in-up"
-                style={{ animationDelay: "120ms" }}
-              >
-                Step into real-world scenarios designed to build cultural intelligence,
-                awareness, and empathy. Practice as both sides. Measure what matters.
-              </p>
-
-              {/* Pillar list */}
-              <ul
-                className="flex flex-col gap-2.5 mt-6 animate-fade-in-up"
-                style={{ animationDelay: "180ms" }}
-              >
-                {pillars.map((p) => (
-                  <li key={p} className="flex items-center gap-2.5 text-sm text-[var(--text-secondary)]">
-                    <CheckCircle2 size={15} style={{ color: "var(--accent-cyan)", flexShrink: 0 }} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTAs */}
-              <div
-                className="flex flex-col sm:flex-row gap-4 mt-10 animate-fade-in-up"
-                style={{ animationDelay: "240ms" }}
-              >
-                <Link to="/workspace/scenario" className="btn-gradient text-[15px]">
-                  Start practicing
-                  <ArrowRight size={18} />
-                </Link>
-                <Link to="/workspace/dashboard" className="btn-secondary text-[15px] px-7 py-4">
-                  View dashboard
-                </Link>
-              </div>
-            </div>
-
-            {/* Right — visual card */}
-            <div
-              className="relative animate-fade-in-up hidden lg:block"
-              style={{ animationDelay: "200ms" }}
+            className="animate-fade-in-up"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "6px 18px",
+              borderRadius: "9999px",
+              background: "linear-gradient(135deg,rgba(129,140,248,0.13),rgba(251,113,133,0.09))",
+              border: "1px solid rgba(129,140,248,0.25)",
+              marginBottom: "36px",
+              backdropFilter: "blur(12px)",
+            }}
+          >
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#818cf8",
+                boxShadow: "0 0 8px #818cf8",
+                display: "inline-block",
+                animation: "pulse-glow 2.4s ease-in-out infinite",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#818cf8",
+              }}
             >
-              {/* Outer glow ring */}
-              <div
-                className="absolute -inset-px rounded-2xl pointer-events-none"
-                style={{
-                  background: "linear-gradient(135deg, rgba(129,140,248,0.2) 0%, rgba(251,113,133,0.12) 100%)",
-                  filter: "blur(1px)",
-                }}
-              />
-              <div className="glass-card-elevated p-8 relative overflow-hidden">
-                {/* Inner glow */}
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-[var(--accent-cyan)] rounded-full blur-[90px] opacity-[0.08]" />
-                <div className="absolute -bottom-20 -left-20 w-52 h-52 bg-[var(--accent-pink)] rounded-full blur-[70px] opacity-[0.07]" />
-
-                <div className="relative space-y-6">
-                  {/* Header */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, rgba(129,140,248,0.15), rgba(251,113,133,0.1))", border: "1px solid rgba(129,140,248,0.2)" }}>
-                      <img src={logo} alt="Trading Places" className="w-8 h-8 object-contain" style={{ filter: "drop-shadow(0 0 6px rgba(129, 140, 248, 0.4))" }} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-[var(--text-primary)]">Trading Places</p>
-                      <p className="text-xs text-[var(--text-tertiary)]">Empathy through experience</p>
-                    </div>
-                    <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                      style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-emerald)]" />
-                      <span className="text-[10px] font-semibold text-[var(--accent-emerald)]">Live session</span>
-                    </div>
-                  </div>
-
-                  {/* Metric cards */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { label: "Understanding", value: "4.2", color: "var(--accent-cyan)" },
-                      { label: "Empathy", value: "3.8", color: "var(--accent-pink)" },
-                      { label: "Clarity", value: "4.5", color: "var(--accent-emerald)" },
-                    ].map((metric) => (
-                      <div key={metric.label}
-                        className="rounded-xl p-3"
-                        style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}>
-                        <p className="text-[9px] uppercase tracking-[0.1em] text-[var(--text-tertiary)] mb-1.5">{metric.label}</p>
-                        <p className="text-2xl font-bold font-mono" style={{ color: metric.color }}>
-                          {metric.value}
-                        </p>
-                        <div className="h-1 w-full bg-[var(--surface-500)] rounded-full mt-2 overflow-hidden">
-                          <div
-                            className="h-full rounded-full"
-                            style={{
-                              width: `${(parseFloat(metric.value) / 5) * 100}%`,
-                              background: `linear-gradient(90deg, ${metric.color}cc, ${metric.color})`,
-                              boxShadow: `0 0 8px ${metric.color}50`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Connection score */}
-                  <div className="rounded-xl p-4"
-                    style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}>
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-xs font-semibold text-[var(--text-secondary)]">Connection Score</p>
-                      <p className="text-lg font-bold font-mono text-[var(--accent-cyan)]">
-                        4.2<span className="text-xs text-[var(--text-tertiary)]">/5</span>
-                      </p>
-                    </div>
-                    <div className="h-2 w-full bg-[var(--surface-500)] rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: "84%",
-                          background: "linear-gradient(90deg, var(--accent-cyan), var(--accent-pink))",
-                          boxShadow: "0 0 12px rgba(129, 140, 248, 0.4)",
-                          animation: "progress-fill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-                        }}
-                      />
-                    </div>
-                    <p className="text-[10px] text-[var(--text-tertiary)] mt-2">↑ 12% from last session</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+              Empathy training platform
+            </span>
           </div>
-        </div>
-      </section>
 
-      {/* ──────── STATS BAR ──────── */}
-      <section className="relative border-y border-[var(--glass-border)]"
-        style={{ background: "linear-gradient(90deg, rgba(13,11,26,0.6), rgba(19,17,40,0.4), rgba(13,11,26,0.6))" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, i) => (
-              <div key={stat.label} className="text-center">
-                <p
-                  className="text-3xl md:text-4xl font-extrabold font-mono tracking-tight"
-                  style={{
-                    background: i % 2 === 0
-                      ? "linear-gradient(135deg, var(--accent-cyan), #a78bfa)"
-                      : "linear-gradient(135deg, var(--accent-pink), #fbbf24)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {stat.value}
-                </p>
-                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-tertiary)] mt-1.5 font-semibold">
-                  {stat.label}
-                </p>
-              </div>
+          {/* Headline */}
+          <h1
+            className="animate-fade-in-up"
+            style={{
+              fontSize: "clamp(3.2rem, 9vw, 7rem)",
+              fontWeight: 900,
+              letterSpacing: "-0.045em",
+              lineHeight: 1.0,
+              marginBottom: "28px",
+              animationDelay: "60ms",
+              maxWidth: "960px",
+            }}
+          >
+            <span style={{ color: "var(--text-primary)" }}>Build&nbsp;</span>
+            <span
+              style={{
+                background: "linear-gradient(135deg,#818cf8 0%,#fb7185 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              empathy
+            </span>
+            <br />
+            <span style={{ color: "var(--text-primary)" }}>that changes</span>
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(135deg,#a78bfa 0%,#fb7185 55%,#fbbf24 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              how teams connect
+            </span>
+          </h1>
+
+          {/* Subheading */}
+          <p
+            className="animate-fade-in-up"
+            style={{
+              fontSize: "clamp(1rem,2.5vw,1.2rem)",
+              color: "var(--text-secondary)",
+              maxWidth: "540px",
+              lineHeight: 1.75,
+              marginBottom: "44px",
+              animationDelay: "120ms",
+            }}
+          >
+            Step into real-world scenarios designed to build cultural intelligence,
+            awareness, and empathy. Practice as both sides. Measure what matters.
+          </p>
+
+          {/* Pillar pills */}
+          <div
+            className="animate-fade-in-up"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              justifyContent: "center",
+              marginBottom: "52px",
+              animationDelay: "180ms",
+            }}
+          >
+            {pillars.map((p) => (
+              <span
+                key={p.label}
+                style={{
+                  padding: "7px 16px",
+                  borderRadius: "9999px",
+                  background: `${p.color}12`,
+                  border: `1px solid ${p.color}30`,
+                  color: p.color,
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  letterSpacing: "0.02em",
+                  backdropFilter: "blur(10px)",
+                }}
+              >
+                {p.label}
+              </span>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ──────── FEATURES GRID ──────── */}
-      <section className="py-28 lg:py-36">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-2xl mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(129,140,248,0.08)", border: "1px solid rgba(129,140,248,0.15)" }}>
-              <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-cyan)" }}>
+          {/* CTAs */}
+          <div
+            className="animate-fade-in-up"
+            style={{
+              display: "flex",
+              gap: "16px",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              animationDelay: "240ms",
+            }}
+          >
+            <Link
+              to="/workspace/scenario"
+              className="btn-gradient"
+              style={{ fontSize: "15px", padding: "14px 32px" }}
+            >
+              Start practicing
+              <ArrowRight size={18} />
+            </Link>
+            <Link
+              to="/workspace/dashboard"
+              className="btn-secondary"
+              style={{ fontSize: "15px", padding: "14px 32px" }}
+            >
+              View dashboard
+            </Link>
+          </div>
+
+          {/* Scroll indicator */}
+          <div
+            className="animate-fade-in-up"
+            style={{
+              position: "absolute",
+              bottom: "36px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "8px",
+              animationDelay: "700ms",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "9px",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--text-tertiary)",
+              }}
+            >
+              Scroll
+            </span>
+            <div
+              style={{
+                width: "1px",
+                height: "44px",
+                background: "linear-gradient(to bottom, rgba(129,140,248,0.6), transparent)",
+                animation: "float 2.2s ease-in-out infinite",
+              }}
+            />
+          </div>
+        </section>
+
+        {/* ══ MANIFESTO STRIP ═══════════════════════════════════════════════ */}
+        <div
+          style={{
+            borderTop: "1px solid var(--glass-border)",
+            borderBottom: "1px solid var(--glass-border)",
+            background: "linear-gradient(90deg,rgba(7,6,15,0.7),rgba(19,17,40,0.5),rgba(7,6,15,0.7))",
+            backdropFilter: "blur(20px)",
+            padding: "48px 24px",
+            textAlign: "center",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              width: "500px",
+              height: "200px",
+              background: "radial-gradient(ellipse,rgba(129,140,248,0.08) 0%,transparent 70%)",
+              pointerEvents: "none",
+            }}
+          />
+          <p
+            data-reveal
+            style={{
+              fontSize: "clamp(1.1rem,3vw,1.6rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              color: "var(--text-secondary)",
+              maxWidth: "700px",
+              margin: "0 auto",
+              lineHeight: 1.5,
+            }}
+          >
+            Every interaction is a chance to{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg,#818cf8,#fb7185)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontWeight: 900,
+              }}
+            >
+              truly connect
+            </span>
+            . Trading Places gives you the space to practice that.
+          </p>
+        </div>
+
+        {/* ══ FEATURES ══════════════════════════════════════════════════════ */}
+        <section style={{ padding: "128px 32px", maxWidth: "1280px", margin: "0 auto" }}>
+          {/* Label + heading */}
+          <div data-reveal style={{ marginBottom: "72px" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "5px 14px",
+                borderRadius: "9999px",
+                background: "rgba(129,140,248,0.08)",
+                border: "1px solid rgba(129,140,248,0.16)",
+                marginBottom: "16px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "#818cf8",
+                }}
+              >
                 What you can do
               </span>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)] leading-tight">
-              Everything you need to practice{" "}
-              <span className="text-gradient">empathy at scale</span>
+            <h2
+              style={{
+                fontSize: "clamp(2rem,4vw,3rem)",
+                fontWeight: 900,
+                letterSpacing: "-0.03em",
+                color: "var(--text-primary)",
+                maxWidth: "560px",
+                lineHeight: 1.15,
+              }}
+            >
+              Everything you need to practise{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg,#818cf8,#fb7185)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                empathy at scale
+              </span>
             </h2>
-            <p className="text-[var(--text-secondary)] mt-5 text-lg leading-relaxed">
-              From interactive roleplay to structured assessments, Trading Places gives you
-              the tools to understand, measure, and improve empathy in every interaction.
-            </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((feature) => {
-              const Icon = feature.icon;
+          {/* Card grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))",
+              gap: "20px",
+            }}
+          >
+            {features.map((f, i) => {
+              const Icon = f.icon;
               return (
                 <div
-                  key={feature.title}
-                  className="glass-card-premium p-6 group cursor-pointer transition-all duration-300"
+                  key={f.title}
+                  data-reveal
+                  style={{ transitionDelay: `${i * 70}ms` }}
                 >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                  <TiltCard
                     style={{
-                      background: `linear-gradient(135deg, ${feature.accent}18, ${feature.accent}08)`,
-                      border: `1px solid ${feature.accent}20`,
+                      height: "100%",
+                      background:
+                        "linear-gradient(135deg,rgba(13,11,26,0.92),rgba(19,17,40,0.75))",
+                      backdropFilter: "blur(28px)",
+                      borderRadius: "20px",
+                      padding: "32px",
+                      border: "1px solid rgba(255,255,255,0.055)",
+                      position: "relative",
+                      overflow: "hidden",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
                     }}
                   >
-                    <Icon size={22} style={{ color: feature.accent }} />
-                  </div>
-                  <h3 className="text-[17px] font-bold text-[var(--text-primary)] mb-2.5">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {feature.description}
-                  </p>
+                    {/* Ghost number */}
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "-14px",
+                        right: "18px",
+                        fontSize: "96px",
+                        fontWeight: 900,
+                        fontFamily: "monospace",
+                        color: f.accent,
+                        opacity: 0.07,
+                        lineHeight: 1,
+                        letterSpacing: "-0.06em",
+                        userSelect: "none",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {f.num}
+                    </span>
+
+                    {/* Subtle inner glow */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: "1px",
+                        background: `linear-gradient(90deg, transparent, ${f.accent}40, transparent)`,
+                      }}
+                    />
+
+                    {/* Icon */}
+                    <div
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "14px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: `${f.accent}14`,
+                        border: `1px solid ${f.accent}28`,
+                        marginBottom: "20px",
+                        boxShadow: `0 0 24px ${f.accent}18`,
+                      }}
+                    >
+                      <Icon size={22} color={f.accent} />
+                    </div>
+
+                    <h3
+                      style={{
+                        fontSize: "17px",
+                        fontWeight: 800,
+                        color: "var(--text-primary)",
+                        marginBottom: "10px",
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      {f.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        color: "var(--text-secondary)",
+                        lineHeight: 1.72,
+                      }}
+                    >
+                      {f.description}
+                    </p>
+                  </TiltCard>
                 </div>
               );
             })}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ──────── HOW IT WORKS ──────── */}
-      <section className="py-28 lg:py-36 border-t border-[var(--glass-border)]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(251,113,133,0.08)", border: "1px solid rgba(251,113,133,0.15)" }}>
-              <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-pink)" }}>
-                How it works
-              </span>
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)]">
-              Three steps to{" "}
-              <span className="text-gradient">stronger empathy</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              {
-                step: "01",
-                title: "Practice scenarios",
-                description: "Enter interactive roleplay as both customer and manager. Choose how to respond at each turn — your choices shape your empathy metrics.",
-                accent: "var(--accent-cyan)",
-              },
-              {
-                step: "02",
-                title: "Review & reflect",
-                description: "See your behaviour signals, connection scores, and flagged moments. Capture reflections and build a library of what works.",
-                accent: "var(--accent-pink)",
-              },
-              {
-                step: "03",
-                title: "Improve & share",
-                description: "Re-run flagged moments with coaching cues. Export your progress as a PDF report for peer reviews or coaching sessions.",
-                accent: "var(--accent-emerald)",
-              },
-            ].map((item) => (
-              <div key={item.step} className="relative">
+        {/* ══ HOW IT WORKS ══════════════════════════════════════════════════ */}
+        <section
+          style={{
+            padding: "120px 32px",
+            borderTop: "1px solid var(--glass-border)",
+          }}
+        >
+          <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+            {/* Header */}
+            <div
+              data-reveal
+              style={{ textAlign: "center", marginBottom: "80px" }}
+            >
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "5px 14px",
+                  borderRadius: "9999px",
+                  background: "rgba(251,113,133,0.08)",
+                  border: "1px solid rgba(251,113,133,0.2)",
+                  marginBottom: "16px",
+                }}
+              >
                 <span
-                  className="text-[100px] font-extrabold leading-none opacity-[0.04] absolute -top-6 -left-3 select-none"
                   style={{
-                    background: `linear-gradient(135deg, ${item.accent}, transparent)`,
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "#fb7185",
+                  }}
+                >
+                  How it works
+                </span>
+              </div>
+              <h2
+                style={{
+                  fontSize: "clamp(2rem,4vw,3rem)",
+                  fontWeight: 900,
+                  letterSpacing: "-0.03em",
+                  color: "var(--text-primary)",
+                }}
+              >
+                Three steps to{" "}
+                <span
+                  style={{
+                    background: "linear-gradient(135deg,#818cf8,#fb7185)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  {item.step}
+                  stronger empathy
                 </span>
-                <div className="relative pt-14">
+              </h2>
+            </div>
+
+            {/* Steps */}
+            <div className="steps-grid">
+              {steps.map((s, i) => (
+                <div
+                  key={s.num}
+                  data-reveal
+                  style={{ transitionDelay: `${i * 150}ms` }}
+                  className="step-item"
+                >
+                  {/* Circle */}
                   <div
-                    className="h-[3px] w-14 rounded-full mb-6"
-                    style={{ background: `linear-gradient(90deg, ${item.accent}, transparent)` }}
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      borderRadius: "50%",
+                      background: `${s.accent}15`,
+                      border: `2px solid ${s.accent}40`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "28px",
+                      boxShadow: `0 0 28px ${s.accent}20`,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 800,
+                        fontFamily: "monospace",
+                        color: s.accent,
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      {s.num}
+                    </span>
+                  </div>
+
+                  {/* Accent bar */}
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "3px",
+                      borderRadius: "9999px",
+                      background: `linear-gradient(90deg,${s.accent},transparent)`,
+                      marginBottom: "18px",
+                    }}
                   />
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">
-                    {item.title}
+
+                  <h3
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: 800,
+                      color: "var(--text-primary)",
+                      marginBottom: "12px",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {s.title}
                   </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {item.description}
+                  <p
+                    style={{
+                      fontSize: "14px",
+                      color: "var(--text-secondary)",
+                      lineHeight: 1.78,
+                    }}
+                  >
+                    {s.desc}
                   </p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ STATS ═════════════════════════════════════════════════════════ */}
+        <section
+          style={{
+            padding: "80px 32px",
+            borderTop: "1px solid var(--glass-border)",
+            borderBottom: "1px solid var(--glass-border)",
+            background:
+              "linear-gradient(90deg,rgba(7,6,15,0.85),rgba(19,17,40,0.6),rgba(7,6,15,0.85))",
+            backdropFilter: "blur(20px)",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: "1280px",
+              margin: "0 auto",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))",
+              gap: "40px",
+              textAlign: "center",
+            }}
+          >
+            {stats.map((s, i) => (
+              <div
+                key={s.label}
+                data-reveal
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
+                <p
+                  style={{
+                    fontSize: "clamp(2.8rem,6vw,4rem)",
+                    fontWeight: 900,
+                    fontFamily: "monospace",
+                    letterSpacing: "-0.04em",
+                    background: `linear-gradient(135deg,${s.accent},${s.grad})`,
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    lineHeight: 1,
+                    marginBottom: "10px",
+                  }}
+                >
+                  {s.val}
+                </p>
+                <p
+                  style={{
+                    fontSize: "11px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    color: "var(--text-tertiary)",
+                    fontWeight: 600,
+                  }}
+                >
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ──────── CTA SECTION ──────── */}
-      <section className="py-28 lg:py-36 border-t border-[var(--glass-border)] relative overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* ══ CTA ═══════════════════════════════════════════════════════════ */}
+        <section
+          style={{
+            padding: "140px 32px",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* Background radial glow */}
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[220px] opacity-[0.05]"
-            style={{ background: "radial-gradient(circle, #818cf8 0%, #fb7185 60%, transparent 100%)" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(ellipse at 50% 50%,rgba(129,140,248,0.07) 0%,rgba(251,113,133,0.04) 40%,transparent 70%)",
+              pointerEvents: "none",
+            }}
           />
-        </div>
 
-        {/* Card */}
-        <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8">
-          <div className="glass-card-premium p-12 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
-              style={{ background: "rgba(129,140,248,0.08)", border: "1px solid rgba(129,140,248,0.15)" }}>
-              <Sparkles size={12} style={{ color: "var(--accent-cyan)" }} />
-              <span className="text-[11px] font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
-                Start your journey
+          <div
+            data-reveal
+            style={{ maxWidth: "700px", margin: "0 auto", position: "relative", zIndex: 1 }}
+          >
+            <div
+              style={{
+                background:
+                  "linear-gradient(135deg,rgba(13,11,26,0.94),rgba(19,17,40,0.82))",
+                backdropFilter: "blur(36px)",
+                borderRadius: "28px",
+                padding: "clamp(48px,8vw,80px)",
+                textAlign: "center",
+                border: "1px solid rgba(129,140,248,0.18)",
+                boxShadow:
+                  "0 0 0 1px rgba(251,113,133,0.06), 0 40px 80px rgba(0,0,0,0.5)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {/* Card inner glows */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "-80px",
+                  right: "-80px",
+                  width: "240px",
+                  height: "240px",
+                  borderRadius: "50%",
+                  background: "#818cf8",
+                  opacity: 0.07,
+                  filter: "blur(70px)",
+                  pointerEvents: "none",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "-80px",
+                  left: "-80px",
+                  width: "240px",
+                  height: "240px",
+                  borderRadius: "50%",
+                  background: "#fb7185",
+                  opacity: 0.06,
+                  filter: "blur(70px)",
+                  pointerEvents: "none",
+                }}
+              />
+
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "5px 14px",
+                  borderRadius: "9999px",
+                  background: "rgba(129,140,248,0.09)",
+                  border: "1px solid rgba(129,140,248,0.2)",
+                  marginBottom: "24px",
+                }}
+              >
+                <Sparkles size={12} color="#818cf8" />
+                <span
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#818cf8",
+                  }}
+                >
+                  Start your journey
+                </span>
+              </div>
+
+              <h2
+                style={{
+                  fontSize: "clamp(1.8rem,4vw,2.8rem)",
+                  fontWeight: 900,
+                  letterSpacing: "-0.03em",
+                  color: "var(--text-primary)",
+                  marginBottom: "16px",
+                  lineHeight: 1.15,
+                }}
+              >
+                Ready to build empathy{" "}
+                <span
+                  style={{
+                    background: "linear-gradient(135deg,#818cf8,#fb7185)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  that lasts?
+                </span>
+              </h2>
+
+              <p
+                style={{
+                  fontSize: "16px",
+                  color: "var(--text-secondary)",
+                  lineHeight: 1.7,
+                  maxWidth: "440px",
+                  margin: "0 auto 40px",
+                }}
+              >
+                Start your first scenario today. Practice, measure, and improve
+                the way your team connects.
+              </p>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "16px",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Link
+                  to="/workspace/scenario"
+                  className="btn-gradient"
+                  style={{ fontSize: "15px", padding: "14px 32px" }}
+                >
+                  Get started free
+                  <ArrowRight size={18} />
+                </Link>
+                <Link
+                  to="/workspace/dashboard"
+                  className="btn-secondary"
+                  style={{ fontSize: "15px", padding: "14px 32px" }}
+                >
+                  Explore dashboard
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ FOOTER ════════════════════════════════════════════════════════ */}
+        <footer
+          style={{
+            borderTop: "1px solid var(--glass-border)",
+            padding: "40px 32px",
+          }}
+        >
+          <div
+            style={{
+              maxWidth: "1280px",
+              margin: "0 auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "16px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <div
+                style={{
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background:
+                    "linear-gradient(135deg,rgba(129,140,248,0.15),rgba(251,113,133,0.1))",
+                  border: "1px solid rgba(129,140,248,0.2)",
+                }}
+              >
+                <img
+                  src={logo}
+                  alt="Trading Places"
+                  style={{
+                    width: "22px",
+                    height: "22px",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0 0 4px rgba(129,140,248,0.5))",
+                  }}
+                />
+              </div>
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "var(--text-secondary)",
+                }}
+              >
+                Trading Places
               </span>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)] mb-4">
-              Ready to build empathy{" "}
-              <span className="text-gradient">that lasts?</span>
-            </h2>
-            <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-10 max-w-xl mx-auto">
-              Start your first scenario today. Practice, measure, and improve the way your team connects.
+            <p style={{ fontSize: "12px", color: "var(--text-tertiary)" }}>
+              © 2025 LSBU Prototype. Built for empathy.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/workspace/scenario" className="btn-gradient text-[15px]">
-                Get started free
-                <ArrowRight size={18} />
-              </Link>
-              <Link to="/workspace/dashboard" className="btn-secondary text-[15px] px-8 py-4">
-                Explore dashboard
-              </Link>
-            </div>
           </div>
-        </div>
-      </section>
-
-      {/* ──────── FOOTER ──────── */}
-      <footer className="border-t border-[var(--glass-border)] py-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, rgba(129,140,248,0.15), rgba(251,113,133,0.1))", border: "1px solid rgba(129,140,248,0.2)" }}>
-              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 0 4px rgba(129, 140, 248, 0.5))" }} />
-            </div>
-            <span className="text-sm font-semibold text-[var(--text-secondary)]">Trading Places</span>
-          </div>
-          <p className="text-xs text-[var(--text-tertiary)]">
-            © 2025 LSBU Prototype. Built for empathy.
-          </p>
-        </div>
-      </footer>
-    </div>
+        </footer>
+      </div>
+    </>
   );
 }
