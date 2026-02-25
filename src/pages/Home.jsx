@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Theater, BarChart3, ClipboardCheck, HeartPulse, FileText, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Theater, BarChart3, ClipboardCheck, HeartPulse, FileText, Sparkles } from "lucide-react";
 import logo from "../assets/trading-places-simulator-1.png";
 
 const features = [
@@ -49,185 +49,191 @@ const stats = [
   { value: "PDF", label: "Report export" },
 ];
 
-const pillars = [
-  "Psychological safety",
-  "Cross-cultural intelligence",
-  "Active listening practice",
-  "Measurable empathy metrics",
+const metrics = [
+  { label: "Understanding", value: "4.2", color: "var(--accent-cyan)", pct: 84 },
+  { label: "Empathy", value: "3.8", color: "var(--accent-pink)", pct: 76 },
+  { label: "Clarity", value: "4.5", color: "var(--accent-emerald)", pct: 90 },
 ];
 
 export default function Home() {
   return (
     <div className="bg-[var(--surface-900)] min-h-screen">
+
       {/* ──────── HERO ──────── */}
-      <section className="relative pt-36 pb-28 lg:pt-44 lg:pb-36 overflow-hidden">
-        {/* Ambient orbs */}
+      <section className="relative pt-36 pb-0 overflow-hidden">
+
+        {/* Large ambient glow orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
-            className="absolute top-[-5%] right-[5%] w-[640px] h-[640px] rounded-full blur-[180px] opacity-[0.07] animate-float"
-            style={{ background: "radial-gradient(circle, #d4a574 0%, #be8d5a 60%, transparent 100%)" }}
+            className="absolute -top-[20%] left-[5%] w-[900px] h-[900px] rounded-full blur-[320px] opacity-[0.07]"
+            style={{ background: "radial-gradient(circle, #d4a574 0%, transparent 65%)" }}
           />
           <div
-            className="absolute bottom-[0%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-[0.05] animate-float"
-            style={{ background: "radial-gradient(circle, #c49690 0%, #a87a76 60%, transparent 100%)", animationDelay: "3.5s" }}
-          />
-          <div
-            className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[120px] opacity-[0.04] animate-float"
-            style={{ background: "radial-gradient(circle, #d4a574 0%, transparent 100%)", animationDelay: "1.5s" }}
+            className="absolute top-[5%] right-[-10%] w-[700px] h-[700px] rounded-full blur-[260px] opacity-[0.05]"
+            style={{ background: "radial-gradient(circle, #c49690 0%, transparent 65%)" }}
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left — copy */}
-            <div>
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in-up"
-                style={{
-                  background: "rgba(212,165,116,0.1)",
-                  border: "1px solid rgba(212,165,116,0.22)",
-                }}
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse-glow" />
-                <span className="text-xs font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
-                  Empathy training platform
-                </span>
-              </div>
+        {/* Small floating dot accents */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+          <div className="absolute top-[22%] left-[9%]  w-3   h-3   rounded-full animate-float opacity-70" style={{ background: "#c49690" }} />
+          <div className="absolute top-[38%] right-[8%]  w-2.5 h-2.5 rounded-full animate-float opacity-60" style={{ background: "#d4a574", animationDelay: "1.2s" }} />
+          <div className="absolute top-[13%] right-[26%] w-2   h-2   rounded-full animate-float opacity-40" style={{ background: "#6dbb8a", animationDelay: "2.1s" }} />
+          <div className="absolute top-[48%] left-[5%]  w-2   h-2   rounded-full animate-float opacity-50" style={{ background: "#d4a030", animationDelay: "3.3s" }} />
+          <div className="absolute top-[18%] left-[48%] w-1.5 h-1.5 rounded-full animate-float opacity-30" style={{ background: "#d4a574", animationDelay: "0.8s" }} />
+          <div className="absolute top-[30%] left-[20%] w-1   h-1   rounded-full animate-float opacity-25" style={{ background: "#c49690", animationDelay: "4s" }} />
+          <div className="absolute top-[28%] right-[20%] w-1   h-1   rounded-full animate-float opacity-20" style={{ background: "#d4a574", animationDelay: "2.8s" }} />
+        </div>
 
-              <h1
-                className="font-display text-5xl sm:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-bold tracking-[-0.02em] leading-[1.08] animate-fade-in-up"
-                style={{ animationDelay: "60ms" }}
-              >
-                <span className="text-[var(--text-primary)]">Build empathy</span>
-                <br />
-                <span className="text-gradient">that changes</span>
-                <br />
-                <span className="text-[var(--text-primary)]">how teams </span>
-                <span className="text-gradient-warm">connect</span>
-              </h1>
+        <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 text-center">
 
-              <p
-                className="text-lg text-[var(--text-secondary)] mt-7 max-w-xl leading-relaxed animate-fade-in-up"
-                style={{ animationDelay: "120ms" }}
-              >
-                Step into real-world scenarios designed to build cultural intelligence,
-                awareness, and empathy. Practice as both sides. Measure what matters.
-              </p>
+          {/* Badge */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10 animate-fade-in-up"
+            style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse-glow" />
+            <span className="text-xs font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
+              Empathy training platform
+            </span>
+          </div>
 
-              {/* Pillar list */}
-              <ul
-                className="flex flex-col gap-2.5 mt-6 animate-fade-in-up"
-                style={{ animationDelay: "180ms" }}
-              >
-                {pillars.map((p) => (
-                  <li key={p} className="flex items-center gap-2.5 text-sm text-[var(--text-secondary)]">
-                    <CheckCircle2 size={15} style={{ color: "var(--accent-cyan)", flexShrink: 0 }} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
+          {/* Headline */}
+          <h1
+            className="font-display text-6xl sm:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold tracking-[-0.03em] leading-[1.04] animate-fade-in-up mb-8"
+            style={{ animationDelay: "60ms" }}
+          >
+            <span className="text-gradient">Build empathy.</span>
+            <br />
+            <span className="text-[var(--text-primary)]">Change teams.</span>
+          </h1>
 
-              {/* CTAs */}
-              <div
-                className="flex flex-col sm:flex-row gap-4 mt-10 animate-fade-in-up"
-                style={{ animationDelay: "240ms" }}
-              >
-                <Link to="/workspace/scenario" className="btn-gradient text-[15px]">
-                  Start practicing
-                  <ArrowRight size={18} />
-                </Link>
-                <Link to="/workspace/dashboard" className="btn-secondary text-[15px] px-7 py-4">
-                  View dashboard
-                </Link>
-              </div>
-            </div>
+          <p
+            className="text-xl text-[var(--text-secondary)] max-w-xl mx-auto leading-relaxed animate-fade-in-up mb-12"
+            style={{ animationDelay: "120ms" }}
+          >
+            Step into real-world scenarios designed to build cultural intelligence,
+            awareness, and empathy. Practice as both sides. Measure what matters.
+          </p>
 
-            {/* Right — visual card */}
+          {/* CTAs */}
+          <div
+            className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up mb-20"
+            style={{ animationDelay: "180ms" }}
+          >
+            <Link to="/workspace/scenario" className="btn-gradient text-[15px]">
+              Start practicing
+              <ArrowRight size={18} />
+            </Link>
+            <Link to="/workspace/dashboard" className="btn-secondary text-[15px] px-7 py-4">
+              View dashboard
+            </Link>
+          </div>
+
+          {/* ── App preview ── */}
+          <div
+            className="relative animate-fade-in-up"
+            style={{ animationDelay: "300ms" }}
+          >
+            {/* Glow halo */}
             <div
-              className="relative animate-fade-in-up hidden lg:block"
-              style={{ animationDelay: "200ms" }}
-            >
-              {/* Outer glow ring */}
-              <div
-                className="absolute -inset-px rounded-2xl pointer-events-none"
-                style={{
-                  background: "linear-gradient(135deg, rgba(212,165,116,0.22) 0%, rgba(196,150,144,0.14) 100%)",
-                  filter: "blur(1px)",
-                }}
-              />
-              <div className="glass-card-elevated p-8 relative overflow-hidden">
-                {/* Inner glow */}
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-[var(--accent-cyan)] rounded-full blur-[90px] opacity-[0.08]" />
-                <div className="absolute -bottom-20 -left-20 w-52 h-52 bg-[var(--accent-pink)] rounded-full blur-[70px] opacity-[0.07]" />
+              className="absolute -inset-6 rounded-3xl blur-[70px] opacity-20 pointer-events-none"
+              style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.6) 0%, rgba(196,150,144,0.4) 100%)" }}
+            />
 
-                <div className="relative space-y-6">
-                  {/* Header */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.14), rgba(196,150,144,0.08))", border: "1px solid rgba(212,165,116,0.22)" }}>
-                      <img src={logo} alt="Trading Places" className="w-8 h-8 object-contain" style={{ filter: "drop-shadow(0 0 8px rgba(212, 165, 116, 0.4))" }} />
+            {/* Perspective wrapper */}
+            <div
+              className="relative overflow-hidden rounded-t-2xl"
+              style={{
+                transform: "perspective(1400px) rotateX(5deg) scale(0.97)",
+                transformOrigin: "center bottom",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderBottom: "none",
+              }}
+            >
+              {/* Browser chrome */}
+              <div
+                className="flex items-center gap-2 px-5 py-3.5 border-b"
+                style={{ background: "var(--surface-700)", borderColor: "rgba(255,255,255,0.06)" }}
+              >
+                <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+                <div
+                  className="ml-4 rounded-full px-4 py-1.5 text-[11px] text-[var(--text-tertiary)]"
+                  style={{ background: "var(--surface-600)", width: "220px" }}
+                >
+                  tradingplaces.app/workspace
+                </div>
+              </div>
+
+              {/* App content */}
+              <div className="p-8 lg:p-10" style={{ background: "var(--surface-800)" }}>
+                {/* Session header */}
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.14), rgba(196,150,144,0.08))", border: "1px solid rgba(212,165,116,0.22)" }}
+                    >
+                      <img src={logo} alt="" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 0 6px rgba(212,165,116,0.4))" }} />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-[var(--text-primary)]">Trading Places</p>
-                      <p className="text-xs text-[var(--text-tertiary)]">Empathy through experience</p>
-                    </div>
-                    <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                      style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-emerald)]" />
-                      <span className="text-[10px] font-semibold text-[var(--accent-emerald)]">Live session</span>
+                      <p className="text-sm font-bold text-[var(--text-primary)]">Session Overview</p>
+                      <p className="text-xs text-[var(--text-tertiary)] mt-0.5">Workplace conflict — Manager scenario</p>
                     </div>
                   </div>
+                  <div
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                    style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-emerald)]" />
+                    <span className="text-[10px] font-semibold text-[var(--accent-emerald)]">Live session</span>
+                  </div>
+                </div>
 
-                  {/* Metric cards */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { label: "Understanding", value: "4.2", color: "var(--accent-cyan)" },
-                      { label: "Empathy", value: "3.8", color: "var(--accent-pink)" },
-                      { label: "Clarity", value: "4.5", color: "var(--accent-emerald)" },
-                    ].map((metric) => (
-                      <div key={metric.label}
-                        className="rounded-xl p-3"
-                        style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}>
-                        <p className="text-[9px] uppercase tracking-[0.1em] text-[var(--text-tertiary)] mb-1.5">{metric.label}</p>
-                        <p className="text-2xl font-bold font-mono" style={{ color: metric.color }}>
-                          {metric.value}
-                        </p>
-                        <div className="h-1 w-full bg-[var(--surface-500)] rounded-full mt-2 overflow-hidden">
-                          <div
-                            className="h-full rounded-full"
-                            style={{
-                              width: `${(parseFloat(metric.value) / 5) * 100}%`,
-                              background: `linear-gradient(90deg, ${metric.color}cc, ${metric.color})`,
-                              boxShadow: `0 0 8px ${metric.color}50`,
-                            }}
-                          />
-                        </div>
+                {/* Metric cards */}
+                <div className="grid grid-cols-3 gap-4 mb-5">
+                  {metrics.map((m) => (
+                    <div
+                      key={m.label}
+                      className="rounded-xl p-4"
+                      style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}
+                    >
+                      <p className="text-[9px] uppercase tracking-[0.1em] text-[var(--text-tertiary)] mb-1.5">{m.label}</p>
+                      <p className="text-3xl font-bold font-mono" style={{ color: m.color }}>{m.value}</p>
+                      <div className="h-1 w-full bg-[var(--surface-500)] rounded-full mt-3 overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{ width: `${m.pct}%`, background: `linear-gradient(90deg, ${m.color}99, ${m.color})` }}
+                        />
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
 
-                  {/* Connection score */}
-                  <div className="rounded-xl p-4"
-                    style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}>
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-xs font-semibold text-[var(--text-secondary)]">Connection Score</p>
-                      <p className="text-lg font-bold font-mono text-[var(--accent-cyan)]">
-                        4.2<span className="text-xs text-[var(--text-tertiary)]">/5</span>
-                      </p>
-                    </div>
-                    <div className="h-2 w-full bg-[var(--surface-500)] rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: "84%",
-                          background: "linear-gradient(90deg, var(--accent-cyan), var(--accent-pink))",
-                          boxShadow: "0 0 12px rgba(212, 165, 116, 0.25)",
-                          animation: "progress-fill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-                        }}
-                      />
-                    </div>
-                    <p className="text-[10px] text-[var(--text-tertiary)] mt-2">↑ 12% from last session</p>
+                {/* Connection score */}
+                <div
+                  className="rounded-xl p-5"
+                  style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-sm font-semibold text-[var(--text-secondary)]">Connection Score</p>
+                    <p className="text-xl font-bold font-mono text-[var(--accent-cyan)]">
+                      4.2 <span className="text-sm text-[var(--text-tertiary)]">/ 5</span>
+                    </p>
                   </div>
+                  <div className="h-2.5 w-full bg-[var(--surface-500)] rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: "84%",
+                        background: "linear-gradient(90deg, var(--accent-cyan), var(--accent-pink))",
+                        boxShadow: "0 0 14px rgba(212,165,116,0.3)",
+                      }}
+                    />
+                  </div>
+                  <p className="text-xs text-[var(--text-tertiary)] mt-2">↑ 12% from last session</p>
                 </div>
               </div>
             </div>
@@ -235,9 +241,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── STATS BAR — warm gold accent strip ──────── */}
-      <section className="relative border-y border-[var(--glass-border)]"
-        style={{ background: "linear-gradient(90deg, rgba(22,26,28,0.9), rgba(30,34,37,0.7), rgba(22,26,28,0.9))" }}>
+      {/* ──────── STATS BAR ──────── */}
+      <section
+        className="relative border-y border-[var(--glass-border)]"
+        style={{ background: "linear-gradient(90deg, rgba(22,26,28,0.9), rgba(30,34,37,0.7), rgba(22,26,28,0.9))" }}
+      >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
@@ -261,8 +269,10 @@ export default function Home() {
       <section className="py-28 lg:py-36">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-2xl mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
+              style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}
+            >
               <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-cyan)" }}>
                 What you can do
               </span>
@@ -311,8 +321,10 @@ export default function Home() {
       <section className="py-28 lg:py-36 border-t border-[var(--glass-border)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(196,144,106,0.1)", border: "1px solid rgba(196,144,106,0.22)" }}>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
+              style={{ background: "rgba(196,144,106,0.1)", border: "1px solid rgba(196,144,106,0.22)" }}
+            >
               <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-pink)" }}>
                 How it works
               </span>
@@ -361,12 +373,8 @@ export default function Home() {
                     className="h-[3px] w-14 rounded-full mb-6"
                     style={{ background: `linear-gradient(90deg, ${item.accent}, transparent)` }}
                   />
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {item.description}
-                  </p>
+                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">{item.title}</h3>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -376,19 +384,18 @@ export default function Home() {
 
       {/* ──────── CTA SECTION ──────── */}
       <section className="py-28 lg:py-36 border-t border-[var(--glass-border)] relative overflow-hidden">
-        {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[220px] opacity-[0.05]"
             style={{ background: "radial-gradient(circle, #d4a574 0%, #be8d5a 60%, transparent 100%)" }}
           />
         </div>
-
-        {/* Card */}
         <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8">
           <div className="glass-card-premium p-12 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
-              style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}>
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
+              style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}
+            >
               <Sparkles size={12} style={{ color: "var(--accent-cyan)" }} />
               <span className="text-[11px] font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
                 Start your journey
@@ -418,17 +425,18 @@ export default function Home() {
       <footer className="border-t border-[var(--glass-border)] py-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.12), rgba(196,150,144,0.06))", border: "1px solid rgba(212,165,116,0.2)" }}>
-              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 2px 4px rgba(212, 165, 116, 0.25))" }} />
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.12), rgba(196,150,144,0.06))", border: "1px solid rgba(212,165,116,0.2)" }}
+            >
+              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 2px 4px rgba(212,165,116,0.25))" }} />
             </div>
             <span className="text-sm font-semibold text-[var(--text-secondary)]">Trading Places</span>
           </div>
-          <p className="text-xs text-[var(--text-tertiary)]">
-            © 2025 LSBU Prototype. Built for empathy.
-          </p>
+          <p className="text-xs text-[var(--text-tertiary)]">© 2025 LSBU Prototype. Built for empathy.</p>
         </div>
       </footer>
+
     </div>
   );
 }
