@@ -14,9 +14,9 @@ const quickLinks = [
 ];
 
 const COLORS = {
-  understanding: "#1e2d3e",
-  empathy: "#c4906a",
-  clarity: "#2a8f6f",
+  understanding: "#d4a574",
+  empathy: "#c49690",
+  clarity: "#6dbb8a",
 };
 
 export default function Dashboard() {
@@ -353,7 +353,7 @@ export default function Dashboard() {
                     className="h-full bg-[var(--accent-cyan)] rounded-full"
                     style={{
                       width: `${completionPercent}%`,
-                      boxShadow: "0 2px 8px rgba(30, 45, 62, 0.15)",
+                      boxShadow: "0 0 10px rgba(212, 165, 116, 0.2)",
                       animation: "progress-fill 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
                     }}
                   />
