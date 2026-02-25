@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Theater, BarChart3, ClipboardCheck, HeartPulse, FileText, Sparkles } from "lucide-react";
 import logo from "../assets/trading-places-simulator-1.png";
@@ -56,33 +56,88 @@ const metrics = [
 ];
 
 export default function Home() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <div className="bg-[var(--surface-900)] min-h-screen">
 
       {/* ──────── HERO ──────── */}
       <section className="relative pt-36 pb-0 overflow-hidden">
 
-        {/* Large ambient glow orbs */}
+        {/* Large ambient glow orbs — parallax layers */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Orb 1 — hot pink, far layer (slowest) */}
           <div
-            className="absolute -top-[20%] left-[5%] w-[900px] h-[900px] rounded-full blur-[320px] opacity-[0.07]"
-            style={{ background: "radial-gradient(circle, #d4a574 0%, transparent 65%)" }}
+            className="absolute -top-[25%] left-[0%] w-[1000px] h-[1000px] rounded-full blur-[340px] opacity-[0.13]"
+            style={{
+              background: "radial-gradient(circle, #f026d9 0%, transparent 65%)",
+              transform: `translateY(${scrollY * 0.38}px)`,
+              willChange: "transform",
+            }}
           />
+          {/* Orb 2 — purple, mid layer */}
           <div
-            className="absolute top-[5%] right-[-10%] w-[700px] h-[700px] rounded-full blur-[260px] opacity-[0.05]"
-            style={{ background: "radial-gradient(circle, #c49690 0%, transparent 65%)" }}
+            className="absolute top-[0%] right-[-15%] w-[800px] h-[800px] rounded-full blur-[280px] opacity-[0.10]"
+            style={{
+              background: "radial-gradient(circle, #9333ea 0%, transparent 65%)",
+              transform: `translateY(${scrollY * 0.22}px)`,
+              willChange: "transform",
+            }}
+          />
+          {/* Orb 3 — blue accent, near layer */}
+          <div
+            className="absolute top-[30%] left-[30%] w-[500px] h-[500px] rounded-full blur-[200px] opacity-[0.06]"
+            style={{
+              background: "radial-gradient(circle, #0ea5e9 0%, transparent 65%)",
+              transform: `translateY(${scrollY * 0.12}px)`,
+              willChange: "transform",
+            }}
           />
         </div>
 
-        {/* Small floating dot accents */}
+        {/* Small floating dot accents — each at a unique parallax rate */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-          <div className="absolute top-[22%] left-[9%]  w-3   h-3   rounded-full animate-float opacity-70" style={{ background: "#c49690" }} />
-          <div className="absolute top-[38%] right-[8%]  w-2.5 h-2.5 rounded-full animate-float opacity-60" style={{ background: "#d4a574", animationDelay: "1.2s" }} />
-          <div className="absolute top-[13%] right-[26%] w-2   h-2   rounded-full animate-float opacity-40" style={{ background: "#6dbb8a", animationDelay: "2.1s" }} />
-          <div className="absolute top-[48%] left-[5%]  w-2   h-2   rounded-full animate-float opacity-50" style={{ background: "#d4a030", animationDelay: "3.3s" }} />
-          <div className="absolute top-[18%] left-[48%] w-1.5 h-1.5 rounded-full animate-float opacity-30" style={{ background: "#d4a574", animationDelay: "0.8s" }} />
-          <div className="absolute top-[30%] left-[20%] w-1   h-1   rounded-full animate-float opacity-25" style={{ background: "#c49690", animationDelay: "4s" }} />
-          <div className="absolute top-[28%] right-[20%] w-1   h-1   rounded-full animate-float opacity-20" style={{ background: "#d4a574", animationDelay: "2.8s" }} />
+          {/* Pink dot — left */}
+          <div className="absolute top-[22%] left-[9%]"
+            style={{ transform: `translateY(${scrollY * -0.18}px)`, willChange: "transform" }}>
+            <div className="w-3 h-3 rounded-full animate-float" style={{ background: "#f026d9", opacity: 0.75 }} />
+          </div>
+          {/* Blue dot — right */}
+          <div className="absolute top-[36%] right-[8%]"
+            style={{ transform: `translateY(${scrollY * -0.28}px)`, willChange: "transform" }}>
+            <div className="w-2.5 h-2.5 rounded-full animate-float" style={{ background: "#0ea5e9", opacity: 0.65, animationDelay: "1.2s" }} />
+          </div>
+          {/* Purple dot — top right area */}
+          <div className="absolute top-[13%] right-[27%]"
+            style={{ transform: `translateY(${scrollY * -0.14}px)`, willChange: "transform" }}>
+            <div className="w-2 h-2 rounded-full animate-float" style={{ background: "#9333ea", opacity: 0.50, animationDelay: "2.3s" }} />
+          </div>
+          {/* Pink dot — far left mid */}
+          <div className="absolute top-[50%] left-[5%]"
+            style={{ transform: `translateY(${scrollY * -0.22}px)`, willChange: "transform" }}>
+            <div className="w-2 h-2 rounded-full animate-float" style={{ background: "#f026d9", opacity: 0.40, animationDelay: "3.5s" }} />
+          </div>
+          {/* Blue dot — center top */}
+          <div className="absolute top-[16%] left-[48%]"
+            style={{ transform: `translateY(${scrollY * -0.10}px)`, willChange: "transform" }}>
+            <div className="w-1.5 h-1.5 rounded-full animate-float" style={{ background: "#0ea5e9", opacity: 0.35, animationDelay: "0.9s" }} />
+          </div>
+          {/* Small pink dot — left mid */}
+          <div className="absolute top-[30%] left-[20%]"
+            style={{ transform: `translateY(${scrollY * -0.16}px)`, willChange: "transform" }}>
+            <div className="w-1 h-1 rounded-full animate-float" style={{ background: "#f026d9", opacity: 0.25, animationDelay: "4.1s" }} />
+          </div>
+          {/* Small purple dot — right mid */}
+          <div className="absolute top-[28%] right-[22%]"
+            style={{ transform: `translateY(${scrollY * -0.20}px)`, willChange: "transform" }}>
+            <div className="w-1 h-1 rounded-full animate-float" style={{ background: "#9333ea", opacity: 0.20, animationDelay: "2.7s" }} />
+          </div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 text-center">
@@ -90,7 +145,7 @@ export default function Home() {
           {/* Badge */}
           <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10 animate-fade-in-up"
-            style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}
+            style={{ background: "rgba(240,38,217,0.1)", border: "1px solid rgba(240,38,217,0.25)" }}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse-glow" />
             <span className="text-xs font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
@@ -105,7 +160,7 @@ export default function Home() {
           >
             <span className="text-gradient">Build empathy.</span>
             <br />
-            <span className="text-[var(--text-primary)]">Change teams.</span>
+            <span className="text-white">Change teams.</span>
           </h1>
 
           <p
@@ -130,15 +185,12 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* ── App preview ── */}
-          <div
-            className="relative animate-fade-in-up"
-            style={{ animationDelay: "300ms" }}
-          >
+          {/* ── App preview — perspective tilt ── */}
+          <div className="relative animate-fade-in-up" style={{ animationDelay: "300ms" }}>
             {/* Glow halo */}
             <div
-              className="absolute -inset-6 rounded-3xl blur-[70px] opacity-20 pointer-events-none"
-              style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.6) 0%, rgba(196,150,144,0.4) 100%)" }}
+              className="absolute -inset-6 rounded-3xl blur-[70px] opacity-25 pointer-events-none"
+              style={{ background: "linear-gradient(135deg, rgba(240,38,217,0.55) 0%, rgba(147,51,234,0.45) 100%)" }}
             />
 
             {/* Perspective wrapper */}
@@ -174,9 +226,17 @@ export default function Home() {
                   <div className="flex items-center gap-3">
                     <div
                       className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.14), rgba(196,150,144,0.08))", border: "1px solid rgba(212,165,116,0.22)" }}
+                      style={{
+                        background: "linear-gradient(135deg, rgba(240,38,217,0.14), rgba(147,51,234,0.08))",
+                        border: "1px solid rgba(240,38,217,0.25)",
+                      }}
                     >
-                      <img src={logo} alt="" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 0 6px rgba(212,165,116,0.4))" }} />
+                      <img
+                        src={logo}
+                        alt=""
+                        className="w-5 h-5 object-contain"
+                        style={{ filter: "drop-shadow(0 0 6px rgba(240,38,217,0.45))" }}
+                      />
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[var(--text-primary)]">Session Overview</p>
@@ -185,7 +245,7 @@ export default function Home() {
                   </div>
                   <div
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
-                    style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}
+                    style={{ background: "rgba(34,211,165,0.1)", border: "1px solid rgba(34,211,165,0.22)" }}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-emerald)]" />
                     <span className="text-[10px] font-semibold text-[var(--accent-emerald)]">Live session</span>
@@ -228,8 +288,8 @@ export default function Home() {
                       className="h-full rounded-full"
                       style={{
                         width: "84%",
-                        background: "linear-gradient(90deg, var(--accent-cyan), var(--accent-pink))",
-                        boxShadow: "0 0 14px rgba(212,165,116,0.3)",
+                        background: "linear-gradient(90deg, #f026d9, #9333ea)",
+                        boxShadow: "0 0 14px rgba(240,38,217,0.35)",
                       }}
                     />
                   </div>
@@ -244,7 +304,7 @@ export default function Home() {
       {/* ──────── STATS BAR ──────── */}
       <section
         className="relative border-y border-[var(--glass-border)]"
-        style={{ background: "linear-gradient(90deg, rgba(22,26,28,0.9), rgba(30,34,37,0.7), rgba(22,26,28,0.9))" }}
+        style={{ background: "linear-gradient(90deg, rgba(9,9,9,0.95), rgba(17,17,17,0.8), rgba(9,9,9,0.95))" }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -252,7 +312,7 @@ export default function Home() {
               <div key={stat.label} className="text-center">
                 <p
                   className="font-display text-3xl md:text-4xl font-bold tracking-tight"
-                  style={{ color: i % 2 === 0 ? "#d4a574" : "#c49690" }}
+                  style={{ color: i % 2 === 0 ? "#f026d9" : "#9333ea" }}
                 >
                   {stat.value}
                 </p>
@@ -271,7 +331,7 @@ export default function Home() {
           <div className="max-w-2xl mb-20">
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}
+              style={{ background: "rgba(240,38,217,0.09)", border: "1px solid rgba(240,38,217,0.22)" }}
             >
               <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-cyan)" }}>
                 What you can do
@@ -299,7 +359,7 @@ export default function Home() {
                     className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
                     style={{
                       background: `linear-gradient(135deg, ${feature.accent}18, ${feature.accent}08)`,
-                      border: `1px solid ${feature.accent}20`,
+                      border: `1px solid ${feature.accent}22`,
                     }}
                   >
                     <Icon size={22} style={{ color: feature.accent }} />
@@ -323,7 +383,7 @@ export default function Home() {
           <div className="text-center max-w-2xl mx-auto mb-20">
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(196,144,106,0.1)", border: "1px solid rgba(196,144,106,0.22)" }}
+              style={{ background: "rgba(147,51,234,0.09)", border: "1px solid rgba(147,51,234,0.25)" }}
             >
               <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-pink)" }}>
                 How it works
@@ -386,15 +446,15 @@ export default function Home() {
       <section className="py-28 lg:py-36 border-t border-[var(--glass-border)] relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[220px] opacity-[0.05]"
-            style={{ background: "radial-gradient(circle, #d4a574 0%, #be8d5a 60%, transparent 100%)" }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[220px] opacity-[0.07]"
+            style={{ background: "radial-gradient(circle, #f026d9 0%, #9333ea 60%, transparent 100%)" }}
           />
         </div>
         <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8">
           <div className="glass-card-premium p-12 text-center">
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
-              style={{ background: "rgba(212,165,116,0.1)", border: "1px solid rgba(212,165,116,0.22)" }}
+              style={{ background: "rgba(240,38,217,0.09)", border: "1px solid rgba(240,38,217,0.25)" }}
             >
               <Sparkles size={12} style={{ color: "var(--accent-cyan)" }} />
               <span className="text-[11px] font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
@@ -427,9 +487,17 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, rgba(212,165,116,0.12), rgba(196,150,144,0.06))", border: "1px solid rgba(212,165,116,0.2)" }}
+              style={{
+                background: "linear-gradient(135deg, rgba(240,38,217,0.12), rgba(147,51,234,0.07))",
+                border: "1px solid rgba(240,38,217,0.22)",
+              }}
             >
-              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 2px 4px rgba(212,165,116,0.25))" }} />
+              <img
+                src={logo}
+                alt="Trading Places"
+                className="w-5 h-5 object-contain"
+                style={{ filter: "drop-shadow(0 2px 4px rgba(240,38,217,0.28))" }}
+              />
             </div>
             <span className="text-sm font-semibold text-[var(--text-secondary)]">Trading Places</span>
           </div>
