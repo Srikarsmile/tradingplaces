@@ -59,7 +59,7 @@ export default function Debrief() {
     if (!data || !scenario) {
         return (
             <div className="max-w-4xl mx-auto py-20 text-center animate-fade-in">
-                <div className="glass-card-elevated p-12">
+                <div className="glass-card-elevated p-8 sm:p-12">
                     <div className="text-5xl mb-4">📋</div>
                     <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2">No debrief data</h2>
                     <p className="text-[var(--text-secondary)] mb-6">
@@ -80,7 +80,7 @@ export default function Debrief() {
     const rerunComposite = rerunAverages ? compositeScore(rerunAverages) : null;
 
     return (
-        <div className="max-w-5xl mx-auto pb-16 animate-fade-in">
+        <div className="max-w-5xl mx-auto px-1 sm:px-0 pb-16 animate-fade-in">
             {/* Header */}
             <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-12 bg-[var(--accent-cyan-subtle)] rounded-2xl flex items-center justify-center">
@@ -124,18 +124,18 @@ export default function Debrief() {
                         return (
                             <div
                                 key={beatIdx}
-                                className={`glass-card-elevated p-5 transition-all ${isFlagged ? "border-l-[3px] border-l-[var(--accent-rose)]" : ""
+                                className={`glass-card-elevated p-4 sm:p-5 transition-all ${isFlagged ? "border-l-[3px] border-l-[var(--accent-rose)]" : ""
                                     }`}
                             >
                                 {/* Beat header */}
-                                <div className="flex items-center justify-between mb-3">
-                                    <div className="flex items-center gap-2">
+                                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                    <div className="flex flex-wrap items-center gap-2">
                                         <span className="text-xs font-mono font-bold text-[var(--text-tertiary)]">
                                             Beat {beatIdx + 1}
                                         </span>
                                         <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${line.role === "officer"
-                                                ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
-                                                : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
+                                            ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
+                                            : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
                                             }`}>
                                             {line.persona}
                                         </span>
@@ -162,8 +162,8 @@ export default function Debrief() {
                                 {/* What you chose */}
                                 {chosen && (
                                     <div className={`rounded-xl p-3 mb-3 border ${rerunChoice != null
-                                            ? "bg-[var(--surface-700)]/50 border-[var(--surface-600)] opacity-60"
-                                            : "bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)]/20"
+                                        ? "bg-[var(--surface-700)]/50 border-[var(--surface-600)] opacity-60"
+                                        : "bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)]/20"
                                         }`}>
                                         <p className="text-xs font-bold text-[var(--text-tertiary)] uppercase tracking-wider mb-1">
                                             {rerunChoice != null ? "Original choice" : "Your choice"}
@@ -175,10 +175,10 @@ export default function Debrief() {
                                                     <span
                                                         key={s}
                                                         className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${chosen.signals[s] === 2
-                                                                ? "bg-emerald-500/20 text-emerald-400"
-                                                                : chosen.signals[s] === 1
-                                                                    ? "bg-amber-500/20 text-amber-400"
-                                                                    : "bg-red-500/20 text-red-400"
+                                                            ? "bg-emerald-500/20 text-emerald-400"
+                                                            : chosen.signals[s] === 1
+                                                                ? "bg-amber-500/20 text-amber-400"
+                                                                : "bg-red-500/20 text-red-400"
                                                             }`}
                                                     >
                                                         {SIGNAL_LABELS[s]}:{chosen.signals[s]}
@@ -206,10 +206,10 @@ export default function Debrief() {
                                                         <span
                                                             key={s}
                                                             className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${rerun === 2
-                                                                    ? "bg-emerald-500/20 text-emerald-400"
-                                                                    : rerun === 1
-                                                                        ? "bg-amber-500/20 text-amber-400"
-                                                                        : "bg-red-500/20 text-red-400"
+                                                                ? "bg-emerald-500/20 text-emerald-400"
+                                                                : rerun === 1
+                                                                    ? "bg-amber-500/20 text-amber-400"
+                                                                    : "bg-red-500/20 text-red-400"
                                                                 }`}
                                                         >
                                                             {SIGNAL_LABELS[s]}:{rerun}
@@ -254,7 +254,7 @@ export default function Debrief() {
                                                         >
                                                             <span className="block text-sm font-semibold">{opt.label}</span>
                                                             {opt.signals && (
-                                                                <span className="block text-[10px] font-mono text-[var(--text-tertiary)] mt-1">
+                                                                <span className="block text-[10px] font-mono text-[var(--text-tertiary)] mt-1 leading-relaxed">
                                                                     {SIGNALS.map((s) => `${SIGNAL_LABELS[s]}:${opt.signals[s]}`).join(" · ")}
                                                                 </span>
                                                             )}
@@ -273,7 +273,7 @@ export default function Debrief() {
                 {/* ── Right: Radar + Scores ── */}
                 <div className="lg:col-span-2 space-y-4">
                     {/* Radar chart */}
-                    <div className="glass-card-elevated p-5">
+                    <div className="glass-card-elevated p-4 sm:p-5">
                         <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wider mb-4">
                             Signal Profile
                         </h3>
@@ -299,7 +299,7 @@ export default function Debrief() {
                     </div>
 
                     {/* Composite score */}
-                    <div className="glass-card-elevated p-5">
+                    <div className="glass-card-elevated p-4 sm:p-5">
                         <div className="flex items-center justify-between mb-3">
                             <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wider">
                                 Composite Score
@@ -320,7 +320,7 @@ export default function Debrief() {
                     </div>
 
                     {/* Per-signal breakdown */}
-                    <div className="glass-card-elevated p-5">
+                    <div className="glass-card-elevated p-4 sm:p-5">
                         <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wider mb-3">
                             Signal Breakdown
                         </h3>

@@ -79,8 +79,8 @@ export default function RadarChart({ signals = {}, comparison = null, size = 280
     });
 
     return (
-        <div className="flex flex-col items-center">
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <div className="flex flex-col items-center w-full">
+            <svg className="w-full max-w-[280px]" viewBox={`0 0 ${size} ${size}`}>
                 {gridRings}
                 {axes}
 
@@ -124,7 +124,7 @@ export default function RadarChart({ signals = {}, comparison = null, size = 280
             </svg>
 
             {/* Signal legend */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-1 mt-2 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 mt-2 text-xs">
                 {SIGNALS.map((s) => (
                     <div key={s} className="flex items-center gap-2">
                         <span className="font-mono font-bold text-[var(--accent-cyan)]">{SIGNAL_LABELS[s]}</span>

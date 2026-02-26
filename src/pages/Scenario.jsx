@@ -232,8 +232,8 @@ export default function Scenario() {
                 key={item.id}
                 onClick={() => setActiveDialogueId(item.id)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${isActive
-                    ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
-                    : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
+                  ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
+                  : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
                   }`}
                 aria-pressed={isActive}
                 aria-label={`Select ${item.title} scenario`}
@@ -255,14 +255,14 @@ export default function Scenario() {
               {activeDialogue.setup}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {dialogueRoles.map((role) => (
               <button
                 key={role}
                 onClick={() => setActiveDialogueRole(role)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${activeDialogueRole === role
-                    ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
-                    : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50"
+                  ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
+                  : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50"
                   }`}
                 aria-pressed={activeDialogueRole === role}
                 aria-label={`Play as ${role}`}
@@ -291,11 +291,11 @@ export default function Scenario() {
             </div>
 
             <div className="mt-4 space-y-3">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[var(--surface-700)] border border-[var(--surface-500)] text-[var(--text-secondary)]">
                   You're speaking as: {dialogueLine.persona} ({dialogueLine.role})
                 </span>
-                <span className="text-xs text-[var(--text-tertiary)]">
+                <span className="text-xs text-[var(--text-tertiary)] hidden sm:inline">
                   Match tone to empathy cues as you deliver the next line.
                 </span>
               </div>
@@ -304,8 +304,8 @@ export default function Scenario() {
                 <div className="flex items-center gap-2 mb-2">
                   <span
                     className={`text-xs font-semibold px-3 py-1 rounded-full ${dialogueLine.role === "manager"
-                        ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
-                        : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
+                      ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
+                      : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
                       }`}
                   >
                     {dialogueLine.persona} — {dialogueLine.role}
@@ -316,7 +316,7 @@ export default function Scenario() {
                     </span>
                   )}
                 </div>
-                <p className="text-lg font-semibold text-[var(--text-primary)] leading-relaxed">
+                <p className="text-base sm:text-lg font-semibold text-[var(--text-primary)] leading-relaxed">
                   "{dialogueLine.text}"
                 </p>
                 <p className="mt-3 text-sm text-[var(--text-secondary)]">
@@ -334,14 +334,14 @@ export default function Scenario() {
                           key={opt.label}
                           onClick={() => handleSelectOption(idx)}
                           className={`w-full text-left px-4 py-3 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${isSelected
-                              ? "bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)] text-[var(--text-primary)] glow-cyan"
-                              : "bg-[var(--surface-600)] border-[var(--surface-500)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
+                            ? "bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)] text-[var(--text-primary)] glow-cyan"
+                            : "bg-[var(--surface-600)] border-[var(--surface-500)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
                             }`}
                           aria-pressed={isSelected}
                           aria-label={`Select response: ${opt.label}`}
                         >
                           <span className="block text-sm font-semibold">{opt.label}</span>
-                          <span className="block text-[10px] font-mono text-[var(--text-tertiary)] mt-0.5">
+                          <span className="block text-[10px] font-mono text-[var(--text-tertiary)] mt-0.5 leading-relaxed">
                             {is6Signal && opt.signals
                               ? SIGNALS.map((s) => `${SIGNAL_LABELS[s]}:${opt.signals[s]}`).join(" · ")
                               : opt.effect
@@ -380,9 +380,9 @@ export default function Scenario() {
                     dialogueSelections[dialogueIndex] == null
                   }
                   className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${dialogueIndex === activeDialogue.lines.length - 1 ||
-                      dialogueSelections[dialogueIndex] == null
-                      ? "bg-[var(--surface-500)] text-[var(--text-tertiary)] cursor-not-allowed"
-                      : "bg-[var(--accent-cyan)] text-[var(--text-inverse)] glow-cyan"
+                    dialogueSelections[dialogueIndex] == null
+                    ? "bg-[var(--surface-500)] text-[var(--text-tertiary)] cursor-not-allowed"
+                    : "bg-[var(--accent-cyan)] text-[var(--text-inverse)] glow-cyan"
                     }`}
                   aria-label="Continue to next dialogue line"
                 >
@@ -463,8 +463,8 @@ export default function Scenario() {
             key={item.id}
             onClick={() => setActiveId(item.id)}
             className={`px-4 py-2.5 rounded-full border text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${item.id === scenario.id
-                ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
-                : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50"
+              ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
+              : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50"
               }`}
             aria-pressed={item.id === scenario.id}
             aria-label={`Select ${item.title} scenario`}

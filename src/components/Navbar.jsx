@@ -123,9 +123,10 @@ export default function Navbar() {
 
               {!loading && isAuthenticated && (
                 <button
-                  onClick={() => {
+                  onClick={async () => {
                     setOpen(false);
-                    signOut();
+                    await signOut();
+                    navigate("/");
                   }}
                   className="mt-2 text-[12px] font-bold tracking-[0.1em] uppercase px-6 py-4 rounded-xl border border-[var(--glass-border)] text-center hover:bg-[var(--surface-700)]"
                 >

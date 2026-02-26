@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, Theater, ClipboardCheck, FileText, HeartPulse, X, Menu, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/trading-places-simulator-1.png";
@@ -9,6 +9,12 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { signOut, username, isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -86,8 +92,8 @@ export default function Sidebar() {
                 to={link.path}
                 onClick={() => isMobile && setIsOpen(false)}
                 className={`py-2.5 px-4 rounded-xl font-medium text-sm transition-all duration-200 flex items-center gap-3 border-l-[3px] ${isActive
-                    ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)] border-l-[var(--accent-cyan)]"
-                    : "text-[var(--text-secondary)] border-l-transparent hover:bg-[var(--surface-600)] hover:text-[var(--text-primary)]"
+                  ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)] border-l-[var(--accent-cyan)]"
+                  : "text-[var(--text-secondary)] border-l-transparent hover:bg-[var(--surface-600)] hover:text-[var(--text-primary)]"
                   }`}
               >
                 <Icon
@@ -113,7 +119,7 @@ export default function Sidebar() {
                 </div>
               </div>
               <button
-                onClick={signOut}
+                onClick={handleSignOut}
                 className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-rose)] hover:bg-[var(--accent-rose-subtle)] rounded-lg transition-colors"
                 aria-label="Sign out"
               >

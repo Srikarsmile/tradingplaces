@@ -117,7 +117,7 @@ export default function Home() {
               variants={wordReveal}
               initial="hidden"
               animate="visible"
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black tracking-tight leading-[1.05] uppercase"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black tracking-tight leading-[1.05] uppercase"
             >
               <motion.span variants={wordChild} className="inline-block text-[var(--text-primary)] mr-4">Where</motion.span>
               <motion.span variants={wordChild} className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-primary)] via-[var(--accent-secondary)] to-[var(--accent-tertiary)]">
@@ -232,7 +232,7 @@ export default function Home() {
         </motion.section>
 
         {/* ──────── FEATURES GRID ──────── */}
-        <section className="py-24 lg:py-40 relative">
+        <section className="py-16 sm:py-24 lg:py-40 relative">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -244,10 +244,10 @@ export default function Home() {
               <p className="text-xs font-bold text-[var(--accent-primary)] uppercase tracking-[0.15em] mb-4">
                 System Capabilities
               </p>
-              <h2 className="text-4xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-[1.1] uppercase">
+              <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-[1.1] uppercase">
                 Architect empathy at pristine, global scale.
               </h2>
-              <p className="text-[var(--text-secondary)] mt-6 text-xl leading-relaxed font-medium">
+              <p className="text-[var(--text-secondary)] mt-4 sm:mt-6 text-base sm:text-xl leading-relaxed font-medium">
                 Our suite provides the analytical rigor and immersive environments necessary
                 to quantify, measure, and profoundly elevate emotional intelligence across teams.
               </p>
@@ -263,7 +263,7 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
                     key={feature.title}
-                    className="p-10 group bg-[var(--surface-800)] border border-[var(--surface-700)] hover:border-[var(--accent-primary)] shadow-sm hover:shadow-[0_0_15px_rgba(193,255,18,0.15)] transition-[border-color,box-shadow] duration-500 rounded-3xl"
+                    className="p-6 sm:p-10 group bg-[var(--surface-800)] border border-[var(--surface-700)] hover:border-[var(--accent-primary)] shadow-sm hover:shadow-[0_0_15px_rgba(193,255,18,0.15)] transition-[border-color,box-shadow] duration-500 rounded-3xl"
                   >
                     <div
                       className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 bg-[var(--surface-800)] border border-[var(--surface-600)]"
@@ -290,7 +290,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] uppercase"
+              className="text-3xl sm:text-4xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] uppercase"
             >
               Ready to <span className="text-[var(--accent-primary)]">begin?</span>
             </motion.h2>
