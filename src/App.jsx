@@ -3,6 +3,8 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import WorkspaceLayout from "./layouts/WorkspaceLayout";
+import SmoothScroll from "./components/SmoothScroll";
+import CustomCursor from "./components/CustomCursor";
 
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
@@ -21,7 +23,8 @@ export default function App() {
     ["/dashboard", "/scenario", "/report"].includes(location.pathname);
 
   return (
-    <>
+    <SmoothScroll>
+      <CustomCursor />
       {!isWorkspace && <Navbar />}
 
       <Routes>
@@ -52,6 +55,6 @@ export default function App() {
           <Route path="assessment" element={<Assessment />} />
         </Route>
       </Routes>
-    </>
+    </SmoothScroll>
   );
 }

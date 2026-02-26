@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import LoadingSpinner from "./LoadingSpinner";
 
 // Set to true to skip authentication (for development)
-const SKIP_AUTH = import.meta.env.VITE_SKIP_AUTH === "true" || true; // Default to true for now
+const SKIP_AUTH = import.meta.env.VITE_SKIP_AUTH === "true"; // Disabled — use dummy login instead
 
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();

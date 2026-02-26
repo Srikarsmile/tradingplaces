@@ -17,8 +17,8 @@ export default function AuthPage() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
-  const redirectTo = (location.state && location.state.from) || "/dashboard";
+  const { isAuthenticated, loginWithDummyCreds } = useAuth();
+  const redirectTo = (location.state && location.state.from) || "/workspace/dashboard";
 
   useEffect(() => {
     const skipAuth = import.meta.env.VITE_SKIP_AUTH === "true";
@@ -62,15 +62,17 @@ export default function AuthPage() {
     }
 
     try {
-      if (mode === "signup") {
-        if (email === "dummy@example.com") {
-          // Allow dummy signup simulation
-          await useAuth().loginWithDummyCreds?.();
-          setMessage("Sign-up successful! Navigating to dashboard...");
-          navigate(redirectTo, { replace: true });
+      // Intercept dummy credentials for both sign in and sign up
+      if (email === "dummy@example.com" && password === "dummy123") {
+        if (loginWithDummyCreds) {
+          await loginWithDummyCreds();
+          setMessage(mode === "signin" ? "Logged in successfully! Redirecting..." : "Sign-up successful! Redirecting...");
+          setTimeout(() => navigate(redirectTo, { replace: true }), 600);
           return;
         }
+      }
 
+      if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
@@ -93,17 +95,6 @@ export default function AuthPage() {
         }
         setMessage("Sign-up successful! Please check your email to confirm your account.");
       } else {
-        // Intercept specific dummy credentials for sign in
-        if (email === "dummy@example.com" && password === "dummy123") {
-          const { loginWithDummyCreds } = useAuth();
-          if (loginWithDummyCreds) {
-            await loginWithDummyCreds();
-            setMessage("Logged in successfully (Mock). Redirecting...");
-            navigate(redirectTo, { replace: true });
-            return;
-          }
-        }
-
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         setMessage("Logged in successfully. Redirecting...");
@@ -137,9 +128,18 @@ export default function AuthPage() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[var(--accent-cyan)] rounded-full blur-[150px] opacity-[0.06] pointer-events-none" />
 
       <div className="glass-card-elevated p-8 w-full max-w-md animate-scale-in relative z-10">
-        <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-4">
           {mode === "signin" ? "Log in" : "Create an account"}
         </h1>
+
+        {/* Dummy credentials hint */}
+        <div className="mb-6 p-3 rounded-xl bg-[var(--accent-primary-subtle)] border border-[var(--accent-primary)]/20 text-sm">
+          <p className="text-[var(--accent-primary)] font-bold text-xs uppercase tracking-wider mb-1">Demo Credentials</p>
+          <p className="text-[var(--text-secondary)] text-xs">
+            Email: <span className="text-[var(--text-primary)] font-mono">dummy@example.com</span> &nbsp;·&nbsp;
+            Password: <span className="text-[var(--text-primary)] font-mono">dummy123</span>
+          </p>
+        </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           {mode === "signup" && (

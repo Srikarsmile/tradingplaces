@@ -1,441 +1,341 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Theater, BarChart3, ClipboardCheck, HeartPulse, FileText, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Theater, BarChart3, ClipboardCheck, HeartPulse, FileText, Sparkles } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import MagneticButton from "../components/MagneticButton";
+import ParticleStarfield from "../components/ParticleStarfield";
 import logo from "../assets/trading-places-simulator-1.png";
 
 const features = [
   {
     icon: Theater,
-    title: "Interactive Roleplay",
-    description: "Step into real scenarios as both customer and manager. Choose responses and watch empathy metrics shift in real time.",
-    accent: "var(--accent-cyan)",
+    title: "Experiential Roleplay",
+    description: "Immerse yourself in deeply simulated scenarios. Choose responses and observe psychological metrics shift in real time.",
+    accent: "var(--accent-primary)",
   },
   {
     icon: BarChart3,
-    title: "Live Metrics Dashboard",
-    description: "Track understanding, empathy, and clarity signals across every practice session with visual analytics.",
-    accent: "var(--accent-pink)",
+    title: "Analytics Dashboard",
+    description: "Map your cognitive evolution with detailed charts tracking understanding, empathy, and clarity across sessions.",
+    accent: "var(--accent-secondary)",
   },
   {
     icon: ClipboardCheck,
-    title: "Behaviour Assessment",
-    description: "Complete structured assessments, review flagged moments, and re-run with coaching cues to improve.",
-    accent: "var(--accent-emerald)",
+    title: "Behavioural Calibration",
+    description: "Undergo rigorous diagnostic assessments. Review flagged interactions and run micro-simulations to correct biases.",
+    accent: "var(--accent-tertiary)",
   },
   {
     icon: HeartPulse,
-    title: "Culture Pulse Signals",
-    description: "Learn the three behaviours that keep teams safe: curiosity, inclusion, and clarity.",
-    accent: "var(--accent-amber)",
+    title: "Culture Pulse Vectors",
+    description: "Master the trinity of psychological safety: unbridled curiosity, radical inclusion, and absolute clarity.",
+    accent: "var(--accent-primary-dim)",
   },
   {
     icon: FileText,
-    title: "Export-Ready Reports",
-    description: "Generate PDF reports with your scores, reflections, and improvement tips for coaching sessions.",
-    accent: "var(--accent-cyan)",
+    title: "Executive Reports",
+    description: "Export beautifully formatted PDF dossiers containing your scores, reflections, and actionable communication strategies.",
+    accent: "var(--accent-primary)",
   },
   {
     icon: Sparkles,
-    title: "Guided Reflection",
-    description: "Capture what shifted when you swapped roles. Build reusable scripts for real workplace interactions.",
-    accent: "var(--accent-pink)",
+    title: "Guided Synthesis",
+    description: "Document the paradigm shifts when you switch perspectives. Architect reusable dialogue frameworks for the real world.",
+    accent: "var(--accent-secondary)",
   },
 ];
 
 const stats = [
-  { value: "3+", label: "Scenario types" },
-  { value: "6", label: "Behaviour signals" },
-  { value: "Real-time", label: "Empathy tracking" },
-  { value: "PDF", label: "Report export" },
+  { value: "3+", label: "Scenarios", desc: "Immersive roleplay modules", icon: Theater, color: "from-[var(--accent-primary)] to-orange-300" },
+  { value: "6", label: "Signals", desc: "Behavioural diagnostics", icon: BarChart3, color: "from-[var(--accent-secondary)] to-purple-300" },
+  { value: "Live", label: "Telemetry", desc: "Real-time empathy feed", icon: HeartPulse, color: "from-[var(--accent-tertiary)] to-cyan-300" },
+  { value: "PDF", label: "Export", desc: "Executive-ready reports", icon: FileText, color: "from-[var(--accent-primary)] to-[var(--accent-secondary)]" },
 ];
 
-const pillars = [
-  "Psychological safety",
-  "Cross-cultural intelligence",
-  "Active listening practice",
-  "Measurable empathy metrics",
-];
+// Staggered word-by-word reveal animation
+const wordReveal = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.4,
+    },
+  },
+};
+
+const wordChild = {
+  hidden: { opacity: 0, y: 60, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { type: "spring", stiffness: 100, damping: 20 },
+  },
+};
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const statsY = useTransform(scrollY, [200, 800], [60, 0]);
+  const statsOpacity = useTransform(scrollY, [200, 600], [0.3, 1]);
+  const featuresY = useTransform(scrollY, [600, 1400], [80, 0]);
+
   return (
-    <div className="bg-[var(--surface-900)] min-h-screen">
-      {/* ──────── HERO ──────── */}
-      <section className="relative pt-36 pb-28 lg:pt-44 lg:pb-36 overflow-hidden">
-        {/* Ambient orbs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div
-            className="absolute top-[-5%] right-[5%] w-[640px] h-[640px] rounded-full blur-[180px] opacity-[0.07] animate-float"
-            style={{ background: "radial-gradient(circle, #818cf8 0%, #6366f1 60%, transparent 100%)" }}
-          />
-          <div
-            className="absolute bottom-[0%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-[0.05] animate-float"
-            style={{ background: "radial-gradient(circle, #fb7185 0%, #f43f5e 60%, transparent 100%)", animationDelay: "3.5s" }}
-          />
-          <div
-            className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[120px] opacity-[0.04] animate-float"
-            style={{ background: "radial-gradient(circle, #a78bfa 0%, transparent 100%)", animationDelay: "1.5s" }}
-          />
-        </div>
+    <div className="bg-[var(--surface-900)] min-h-screen relative overflow-hidden font-sans text-[var(--text-primary)]">
+      {/* ──────── ANIMATED GRADIENT BACKGROUND ──────── */}
+      <div className="hero-gradient-bg" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left — copy */}
-            <div>
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in-up"
-                style={{
-                  background: "linear-gradient(135deg, rgba(129,140,248,0.1) 0%, rgba(251,113,133,0.08) 100%)",
-                  border: "1px solid rgba(129,140,248,0.2)",
-                }}
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse-glow" />
-                <span className="text-xs font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
-                  Empathy training platform
-                </span>
-              </div>
+      {/* ──────── PARTICLE STARFIELD ──────── */}
+      <ParticleStarfield />
 
-              <h1
-                className="text-5xl sm:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold tracking-[-0.04em] leading-[1.05] animate-fade-in-up"
-                style={{ animationDelay: "60ms" }}
-              >
-                <span className="text-[var(--text-primary)]">Build empathy</span>
-                <br />
-                <span className="text-gradient">that changes</span>
-                <br />
-                <span className="text-[var(--text-primary)]">how teams </span>
-                <span className="text-gradient-warm">connect</span>
-              </h1>
+      {/* ──────── FOREGROUND CONTENT ──────── */}
+      <div className="relative z-10">
 
-              <p
-                className="text-lg text-[var(--text-secondary)] mt-7 max-w-xl leading-relaxed animate-fade-in-up"
-                style={{ animationDelay: "120ms" }}
-              >
-                Step into real-world scenarios designed to build cultural intelligence,
-                awareness, and empathy. Practice as both sides. Measure what matters.
-              </p>
+        {/* ──────── HERO ──────── */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
+          {/* Background glow orbs */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-[25%] left-[20%] w-[320px] h-[320px] bg-[var(--accent-primary)] rounded-full blur-[120px] opacity-[0.08]" />
+            <div className="absolute bottom-[15%] right-[20%] w-[280px] h-[280px] bg-[var(--accent-secondary)] rounded-full blur-[120px] opacity-[0.07]" />
+          </div>
 
-              {/* Pillar list */}
-              <ul
-                className="flex flex-col gap-2.5 mt-6 animate-fade-in-up"
-                style={{ animationDelay: "180ms" }}
-              >
-                {pillars.map((p) => (
-                  <li key={p} className="flex items-center gap-2.5 text-sm text-[var(--text-secondary)]">
-                    <CheckCircle2 size={15} style={{ color: "var(--accent-cyan)", flexShrink: 0 }} />
-                    {p}
-                  </li>
-                ))}
-              </ul>
+          <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--surface-800)]/50 border border-[var(--glass-border)] mb-10 backdrop-blur-xl"
+            >
+              <span className="h-2 w-2 rounded-full bg-[var(--accent-primary)] shadow-[0_0_12px_var(--accent-primary-glow)] animate-pulse" />
+              <span className="text-xs font-bold text-[var(--text-secondary)] tracking-[0.15em] uppercase">
+                Empathy Intelligence Platform
+              </span>
+            </motion.div>
 
-              {/* CTAs */}
-              <div
-                className="flex flex-col sm:flex-row gap-4 mt-10 animate-fade-in-up"
-                style={{ animationDelay: "240ms" }}
-              >
-                <Link to="/workspace/scenario" className="btn-gradient text-[15px]">
-                  Start practicing
+            {/* Main headline — cinematic word-by-word reveal */}
+            <motion.h1
+              variants={wordReveal}
+              initial="hidden"
+              animate="visible"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-black tracking-tight leading-[1.05] uppercase"
+            >
+              <motion.span variants={wordChild} className="inline-block text-[var(--text-primary)] mr-4">Where</motion.span>
+              <motion.span variants={wordChild} className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-primary)] via-[var(--accent-secondary)] to-[var(--accent-tertiary)]">
+                perspective
+              </motion.span>
+              <br />
+              <motion.span variants={wordChild} className="inline-block text-[var(--text-primary)] mr-4">becomes</motion.span>
+              <motion.span variants={wordChild} className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-secondary)] to-[var(--accent-primary)]">
+                power.
+              </motion.span>
+            </motion.h1>
+
+            {/* Glowing shimmer accent line */}
+            <motion.div
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ delay: 1.0, duration: 0.8, ease: "easeOut" }}
+              className="mx-auto mt-6 h-[2px] w-48 origin-center animate-shimmer"
+              style={{
+                background: 'linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), transparent)',
+              }}
+            />
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0, duration: 0.8 }}
+              className="text-lg md:text-xl text-[var(--text-secondary)] mt-8 max-w-2xl mx-auto leading-relaxed font-medium"
+            >
+              Step into immersive simulations that build cognitive flexibility,
+              cultural intelligence, and the kind of empathy that changes everything.
+            </motion.p>
+
+            {/* CTA buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 mt-12 justify-center relative z-20"
+            >
+              <MagneticButton>
+                <Link
+                  to="/workspace/scenario"
+                  className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-[var(--accent-primary)] text-[var(--text-inverse)] font-bold text-[15px] shadow-[var(--shadow-glow-primary)] hover:shadow-[0_0_60px_var(--accent-primary-glow)] transition-shadow duration-500 uppercase"
+                >
+                  Start Simulation
                   <ArrowRight size={18} />
                 </Link>
-                <Link to="/workspace/dashboard" className="btn-secondary text-[15px] px-7 py-4">
-                  View dashboard
+              </MagneticButton>
+              <MagneticButton>
+                <Link
+                  to="/workspace/dashboard"
+                  className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[var(--surface-800)]/50 backdrop-blur-md border border-[var(--glass-border)] text-[var(--text-primary)] font-bold text-[15px] hover:bg-[var(--surface-700)]/80 transition-colors duration-300 uppercase"
+                >
+                  View Dashboard
                 </Link>
-              </div>
-            </div>
+              </MagneticButton>
+            </motion.div>
 
-            {/* Right — visual card */}
-            <div
-              className="relative animate-fade-in-up hidden lg:block"
-              style={{ animationDelay: "200ms" }}
+            {/* Scroll indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.0, duration: 1 }}
+              className="mt-14 flex flex-col items-center gap-2"
             >
-              {/* Outer glow ring */}
-              <div
-                className="absolute -inset-px rounded-2xl pointer-events-none"
-                style={{
-                  background: "linear-gradient(135deg, rgba(129,140,248,0.2) 0%, rgba(251,113,133,0.12) 100%)",
-                  filter: "blur(1px)",
-                }}
-              />
-              <div className="glass-card-elevated p-8 relative overflow-hidden">
-                {/* Inner glow */}
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-[var(--accent-cyan)] rounded-full blur-[90px] opacity-[0.08]" />
-                <div className="absolute -bottom-20 -left-20 w-52 h-52 bg-[var(--accent-pink)] rounded-full blur-[70px] opacity-[0.07]" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-tertiary)] font-bold">Scroll</span>
+              <div className="w-5 h-8 rounded-full border border-[var(--surface-600)] flex items-start justify-center p-1.5">
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-1 h-1 rounded-full bg-[var(--accent-primary)]"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-                <div className="relative space-y-6">
-                  {/* Header */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg, rgba(129,140,248,0.15), rgba(251,113,133,0.1))", border: "1px solid rgba(129,140,248,0.2)" }}>
-                      <img src={logo} alt="Trading Places" className="w-8 h-8 object-contain" style={{ filter: "drop-shadow(0 0 6px rgba(129, 140, 248, 0.4))" }} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-[var(--text-primary)]">Trading Places</p>
-                      <p className="text-xs text-[var(--text-tertiary)]">Empathy through experience</p>
-                    </div>
-                    <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                      style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-emerald)]" />
-                      <span className="text-[10px] font-semibold text-[var(--accent-emerald)]">Live session</span>
-                    </div>
-                  </div>
-
-                  {/* Metric cards */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { label: "Understanding", value: "4.2", color: "var(--accent-cyan)" },
-                      { label: "Empathy", value: "3.8", color: "var(--accent-pink)" },
-                      { label: "Clarity", value: "4.5", color: "var(--accent-emerald)" },
-                    ].map((metric) => (
-                      <div key={metric.label}
-                        className="rounded-xl p-3"
-                        style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}>
-                        <p className="text-[9px] uppercase tracking-[0.1em] text-[var(--text-tertiary)] mb-1.5">{metric.label}</p>
-                        <p className="text-2xl font-bold font-mono" style={{ color: metric.color }}>
-                          {metric.value}
-                        </p>
-                        <div className="h-1 w-full bg-[var(--surface-500)] rounded-full mt-2 overflow-hidden">
-                          <div
-                            className="h-full rounded-full"
-                            style={{
-                              width: `${(parseFloat(metric.value) / 5) * 100}%`,
-                              background: `linear-gradient(90deg, ${metric.color}cc, ${metric.color})`,
-                              boxShadow: `0 0 8px ${metric.color}50`,
-                            }}
-                          />
-                        </div>
+        {/* ──────── STATS BAR ──────── */}
+        <motion.section style={{ y: statsY, opacity: statsOpacity }} className="relative py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+              {stats.map((stat, idx) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1, type: "spring", stiffness: 100 }}
+                    className="relative group bg-[var(--surface-800)] border border-[var(--glass-border)] rounded-2xl p-6 hover:border-[var(--surface-500)] transition-colors duration-500 overflow-hidden"
+                  >
+                    {/* Gradient top accent line */}
+                    <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${stat.color} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-[var(--surface-700)]/50 border border-[var(--glass-border)] flex items-center justify-center">
+                        <Icon size={18} className="text-[var(--text-tertiary)] group-hover:text-[var(--text-primary)] transition-colors" />
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Connection score */}
-                  <div className="rounded-xl p-4"
-                    style={{ background: "var(--surface-700)", border: "1px solid var(--surface-500)" }}>
-                    <div className="flex items-center justify-between mb-3">
-                      <p className="text-xs font-semibold text-[var(--text-secondary)]">Connection Score</p>
-                      <p className="text-lg font-bold font-mono text-[var(--accent-cyan)]">
-                        4.2<span className="text-xs text-[var(--text-tertiary)]">/5</span>
+                      <p className="text-3xl md:text-4xl font-black font-mono text-[var(--text-primary)] tracking-tighter">
+                        {stat.value}
                       </p>
                     </div>
-                    <div className="h-2 w-full bg-[var(--surface-500)] rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: "84%",
-                          background: "linear-gradient(90deg, var(--accent-cyan), var(--accent-pink))",
-                          boxShadow: "0 0 12px rgba(129, 140, 248, 0.4)",
-                          animation: "progress-fill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-                        }}
-                      />
-                    </div>
-                    <p className="text-[10px] text-[var(--text-tertiary)] mt-2">↑ 12% from last session</p>
-                  </div>
-                </div>
-              </div>
+                    <p className="text-xs uppercase tracking-[0.15em] text-[var(--text-primary)] font-bold">{stat.label}</p>
+                    <p className="text-[11px] text-[var(--text-tertiary)] mt-1 font-medium">{stat.desc}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      {/* ──────── STATS BAR ──────── */}
-      <section className="relative border-y border-[var(--glass-border)]"
-        style={{ background: "linear-gradient(90deg, rgba(13,11,26,0.6), rgba(19,17,40,0.4), rgba(13,11,26,0.6))" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, i) => (
-              <div key={stat.label} className="text-center">
-                <p
-                  className="text-3xl md:text-4xl font-extrabold font-mono tracking-tight"
-                  style={{
-                    background: i % 2 === 0
-                      ? "linear-gradient(135deg, var(--accent-cyan), #a78bfa)"
-                      : "linear-gradient(135deg, var(--accent-pink), #fbbf24)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {stat.value}
-                </p>
-                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-tertiary)] mt-1.5 font-semibold">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* ──────── FEATURES GRID ──────── */}
+        <section className="py-24 lg:py-40 relative">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              style={{ y: featuresY }}
+              className="max-w-3xl mb-20"
+            >
+              <p className="text-xs font-bold text-[var(--accent-primary)] uppercase tracking-[0.15em] mb-4">
+                System Capabilities
+              </p>
+              <h2 className="text-4xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] leading-[1.1] uppercase">
+                Architect empathy at pristine, global scale.
+              </h2>
+              <p className="text-[var(--text-secondary)] mt-6 text-xl leading-relaxed font-medium">
+                Our suite provides the analytical rigor and immersive environments necessary
+                to quantify, measure, and profoundly elevate emotional intelligence across teams.
+              </p>
+            </motion.div>
 
-      {/* ──────── FEATURES GRID ──────── */}
-      <section className="py-28 lg:py-36">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-2xl mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(129,140,248,0.08)", border: "1px solid rgba(129,140,248,0.15)" }}>
-              <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-cyan)" }}>
-                What you can do
-              </span>
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)] leading-tight">
-              Everything you need to practice{" "}
-              <span className="text-gradient">empathy at scale</span>
-            </h2>
-            <p className="text-[var(--text-secondary)] mt-5 text-lg leading-relaxed">
-              From interactive roleplay to structured assessments, Trading Places gives you
-              the tools to understand, measure, and improve empathy in every interaction.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className="glass-card-premium p-6 group cursor-pointer transition-all duration-300"
-                >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                    style={{
-                      background: `linear-gradient(135deg, ${feature.accent}18, ${feature.accent}08)`,
-                      border: `1px solid ${feature.accent}20`,
-                    }}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {features.map((feature, idx) => {
+                const Icon = feature.icon;
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    key={feature.title}
+                    className="p-10 group bg-[var(--surface-800)] border border-[var(--surface-700)] hover:border-[var(--accent-primary)] shadow-sm hover:shadow-[0_0_15px_rgba(193,255,18,0.15)] transition-[border-color,box-shadow] duration-500 rounded-3xl"
                   >
-                    <Icon size={22} style={{ color: feature.accent }} />
-                  </div>
-                  <h3 className="text-[17px] font-bold text-[var(--text-primary)] mb-2.5">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ──────── HOW IT WORKS ──────── */}
-      <section className="py-28 lg:py-36 border-t border-[var(--glass-border)]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
-              style={{ background: "rgba(251,113,133,0.08)", border: "1px solid rgba(251,113,133,0.15)" }}>
-              <span className="text-[11px] font-semibold tracking-widest uppercase" style={{ color: "var(--accent-pink)" }}>
-                How it works
-              </span>
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 bg-[var(--surface-800)] border border-[var(--surface-600)]"
+                    >
+                      <Icon size={26} className="text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors" />
+                    </div>
+                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-4 tracking-tight uppercase">
+                      {feature.title}
+                    </h3>
+                    <p className="text-[15px] text-[var(--text-secondary)] leading-relaxed font-medium">
+                      {feature.description}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)]">
-              Three steps to{" "}
-              <span className="text-gradient">stronger empathy</span>
-            </h2>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              {
-                step: "01",
-                title: "Practice scenarios",
-                description: "Enter interactive roleplay as both customer and manager. Choose how to respond at each turn — your choices shape your empathy metrics.",
-                accent: "var(--accent-cyan)",
-              },
-              {
-                step: "02",
-                title: "Review & reflect",
-                description: "See your behaviour signals, connection scores, and flagged moments. Capture reflections and build a library of what works.",
-                accent: "var(--accent-pink)",
-              },
-              {
-                step: "03",
-                title: "Improve & share",
-                description: "Re-run flagged moments with coaching cues. Export your progress as a PDF report for peer reviews or coaching sessions.",
-                accent: "var(--accent-emerald)",
-              },
-            ].map((item) => (
-              <div key={item.step} className="relative">
-                <span
-                  className="text-[100px] font-extrabold leading-none opacity-[0.04] absolute -top-6 -left-3 select-none"
-                  style={{
-                    background: `linear-gradient(135deg, ${item.accent}, transparent)`,
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {item.step}
-                </span>
-                <div className="relative pt-14">
-                  <div
-                    className="h-[3px] w-14 rounded-full mb-6"
-                    style={{ background: `linear-gradient(90deg, ${item.accent}, transparent)` }}
-                  />
-                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+        {/* ──────── CTA SECTION ──────── */}
+        <section className="py-20 lg:py-28 border-t border-[var(--surface-700)] relative">
+          <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl lg:text-6xl font-black tracking-tight text-[var(--text-primary)] uppercase"
+            >
+              Ready to <span className="text-[var(--accent-primary)]">begin?</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-lg text-[var(--text-secondary)] mt-6 leading-relaxed font-medium"
+            >
+              Start your first simulation and see how perspective shifts everything.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="flex justify-center mt-10"
+            >
+              <Link
+                to="/workspace/scenario"
+                className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-full bg-[var(--accent-primary)] text-[var(--surface-900)] font-bold text-[15px] shadow-[var(--shadow-glow-primary)] hover:shadow-[0_0_60px_var(--accent-primary-glow)] transition-shadow duration-500 uppercase"
+              >
+                Launch Platform
+                <ArrowRight size={20} />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ──────── FOOTER ──────── */}
+        <footer className="border-t border-[var(--surface-700)] py-12 relative z-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-[var(--surface-800)] border border-[var(--surface-600)] rounded-xl shadow-sm">
+                <img src={logo} alt="Trading Places" className="w-6 h-6 object-contain grayscale opacity-80" />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ──────── CTA SECTION ──────── */}
-      <section className="py-28 lg:py-36 border-t border-[var(--glass-border)] relative overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[220px] opacity-[0.05]"
-            style={{ background: "radial-gradient(circle, #818cf8 0%, #fb7185 60%, transparent 100%)" }}
-          />
-        </div>
-
-        {/* Card */}
-        <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8">
-          <div className="glass-card-premium p-12 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
-              style={{ background: "rgba(129,140,248,0.08)", border: "1px solid rgba(129,140,248,0.15)" }}>
-              <Sparkles size={12} style={{ color: "var(--accent-cyan)" }} />
-              <span className="text-[11px] font-semibold tracking-wide" style={{ color: "var(--accent-cyan)" }}>
-                Start your journey
-              </span>
+              <span className="text-[13px] font-bold tracking-[0.15em] uppercase text-[var(--text-tertiary)]">Trading Places</span>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)] mb-4">
-              Ready to build empathy{" "}
-              <span className="text-gradient">that lasts?</span>
-            </h2>
-            <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-10 max-w-xl mx-auto">
-              Start your first scenario today. Practice, measure, and improve the way your team connects.
+            <p className="text-[11px] tracking-[0.15em] uppercase text-[var(--text-tertiary)] font-bold">
+              © {new Date().getFullYear()} Advanced Empathy Systems
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/workspace/scenario" className="btn-gradient text-[15px]">
-                Get started free
-                <ArrowRight size={18} />
-              </Link>
-              <Link to="/workspace/dashboard" className="btn-secondary text-[15px] px-8 py-4">
-                Explore dashboard
-              </Link>
-            </div>
           </div>
-        </div>
-      </section>
-
-      {/* ──────── FOOTER ──────── */}
-      <footer className="border-t border-[var(--glass-border)] py-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, rgba(129,140,248,0.15), rgba(251,113,133,0.1))", border: "1px solid rgba(129,140,248,0.2)" }}>
-              <img src={logo} alt="Trading Places" className="w-5 h-5 object-contain" style={{ filter: "drop-shadow(0 0 4px rgba(129, 140, 248, 0.5))" }} />
-            </div>
-            <span className="text-sm font-semibold text-[var(--text-secondary)]">Trading Places</span>
-          </div>
-          <p className="text-xs text-[var(--text-tertiary)]">
-            © 2025 LSBU Prototype. Built for empathy.
-          </p>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }
