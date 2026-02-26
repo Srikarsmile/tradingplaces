@@ -1,8 +1,13 @@
+/* ─────────────────────────────────────────────
+   1. Retail — "Tone at the Till"
+   6-Signal Scoring (Phase 1)
+   ───────────────────────────────────────────── */
 export const toneAtTillDialogue = {
   id: "tone-at-till",
   title: "Tone at the Till: Live Dialogue",
   setup:
     "Roleplay a short exchange at the checkout. Swap roles between customer and manager to see how tone and word choice change the outcome.",
+  signalBased: true,
   lines: [
     {
       role: "customer",
@@ -10,30 +15,9 @@ export const toneAtTillDialogue = {
       text: "Hi, I'm back about the headphones. I was told they'd be exchanged, but service said they'd only repair them.",
       cue: "Name the emotion you hear before explaining process.",
       options: [
-        {
-          label: "Lead with apology and invite details",
-          effect: {
-            Understanding: 0.5,
-            "Empathy signaled": 1,
-            "Clarity of next steps": 0.5,
-          },
-        },
-        {
-          label: "Ask for receipt immediately",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": -1,
-            "Clarity of next steps": 0,
-          },
-        },
-        {
-          label: "Say 'policy is policy'",
-          effect: {
-            Understanding: -1,
-            "Empathy signaled": -1,
-            "Clarity of next steps": -0.5,
-          },
-        },
+        { label: "Lead with apology and invite details", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 1, "Collaborative Problem-Solving": 2 } },
+        { label: "Ask for receipt immediately", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'policy is policy'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -42,30 +26,9 @@ export const toneAtTillDialogue = {
       text: "I'm sorry you've had to come back and wait in the line. I want to understand what was promised so we can make it right.",
       cue: "Validate and invite clarity without defensiveness.",
       options: [
-        {
-          label: "Mirror back frustration and ask what was promised",
-          effect: {
-            Understanding: 0.5,
-            "Empathy signaled": 1,
-            "Clarity of next steps": 0.5,
-          },
-        },
-        {
-          label: "Jump to explaining store policy",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": 0.5,
-          },
-        },
-        {
-          label: "Offer to bring another staffer",
-          effect: {
-            Understanding: 0,
-            "Empathy signaled": 0.5,
-            "Clarity of next steps": 0,
-          },
-        },
+        { label: "Mirror back frustration and ask what was promised", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 1, "Collaborative Problem-Solving": 1 } },
+        { label: "Jump to explaining store policy", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Offer to bring another staffer", signals: { "Active Listening": 1, "Emotional Regulation": 1, "Perspective Taking": 1, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 1 } },
       ],
     },
     {
@@ -74,30 +37,9 @@ export const toneAtTillDialogue = {
       text: "I just don't want to be stuck waiting weeks. The store said I could swap today.",
       cue: "Listen for the need (time) not just the policy conflict.",
       options: [
-        {
-          label: "Name the need for speed and restate promise",
-          effect: {
-            Understanding: 1,
-            "Empathy signaled": 0.5,
-            "Clarity of next steps": 0.5,
-          },
-        },
-        {
-          label: "Offer a coupon but keep repair",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": 0,
-            "Clarity of next steps": 0.5,
-          },
-        },
-        {
-          label: "Say 'waiting is standard'",
-          effect: {
-            Understanding: -1,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": -0.5,
-          },
-        },
+        { label: "Name the need for speed and restate promise", signals: { "Active Listening": 2, "Emotional Regulation": 1, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 1 } },
+        { label: "Offer a coupon but keep repair", signals: { "Active Listening": 1, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 1 } },
+        { label: "Say 'waiting is standard'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -106,30 +48,9 @@ export const toneAtTillDialogue = {
       text: "Got it. Speed matters to you. We can either swap today for the same model, or repair and give you a charger on loan while you wait. Which feels better?",
       cue: "Offer choices and invite them to choose.",
       options: [
-        {
-          label: "Offer two options and ask which feels better",
-          effect: {
-            Understanding: 0.5,
-            "Empathy signaled": 0.5,
-            "Clarity of next steps": 1,
-          },
-        },
-        {
-          label: "Offer one option you prefer",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": 0.5,
-          },
-        },
-        {
-          label: "Delay decision and check with back office",
-          effect: {
-            Understanding: 0,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": -1,
-          },
-        },
+        { label: "Offer two options and ask which feels better", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Offer one option you prefer", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Delay decision and check with back office", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -138,30 +59,9 @@ export const toneAtTillDialogue = {
       text: "Let's swap today. I can't be without them this week.",
       cue: "Reflect back the choice to ensure alignment.",
       options: [
-        {
-          label: "Confirm swap and timeline out loud",
-          effect: {
-            Understanding: 0.5,
-            "Empathy signaled": 0.5,
-            "Clarity of next steps": 1,
-          },
-        },
-        {
-          label: "Nod and start typing without saying next steps",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": -1,
-          },
-        },
-        {
-          label: "Offer upsell while processing",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": 0,
-          },
-        },
+        { label: "Confirm swap and timeline out loud", signals: { "Active Listening": 2, "Emotional Regulation": 1, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Nod and start typing without saying next steps", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Offer upsell while processing", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -170,41 +70,26 @@ export const toneAtTillDialogue = {
       text: "Great, I'll process the exchange now. It will take about five minutes. I'll also email a confirmation so you have it in writing.",
       cue: "Narrate next steps and timelines so trust stays high.",
       options: [
-        {
-          label: "Narrate steps with time and documentation",
-          effect: {
-            Understanding: 0.5,
-            "Empathy signaled": 0.5,
-            "Clarity of next steps": 1,
-          },
-        },
-        {
-          label: "Just say 'one sec' and walk away",
-          effect: {
-            Understanding: -1,
-            "Empathy signaled": -1,
-            "Clarity of next steps": -1,
-          },
-        },
-        {
-          label: "Ask another associate to handle without context",
-          effect: {
-            Understanding: -0.5,
-            "Empathy signaled": -0.5,
-            "Clarity of next steps": -0.5,
-          },
-        },
+        { label: "Narrate steps with time and documentation", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Just say 'one sec' and walk away", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Ask another associate to handle without context", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
   ],
+  signals: ["Active Listening", "Emotional Regulation", "Perspective Taking", "Cultural Sensitivity", "Clarity of Communication", "Collaborative Problem-Solving"],
   metrics: ["Understanding", "Empathy signaled", "Clarity of next steps"],
 };
 
+/* ─────────────────────────────────────────────
+   2. Immigration Policy — "Trading Places"
+   6-Signal Scoring (Phase 1)
+   ───────────────────────────────────────────── */
 export const immigrationPolicyDialogue = {
   id: "immigration-policy-dialogue",
   title: "Trading Places – Immigration Policy",
   setup:
     "Walk the loop as policymaker, citizen, and case worker. Notice how efficiency goals land on people, and how tone plus clarity shift moral tension.",
+  signalBased: true,
   lines: [
     {
       role: "policymaker",
@@ -212,18 +97,9 @@ export const immigrationPolicyDialogue = {
       text: "We need to tighten eligibility and documentation to cut the backlog. Compliance is priority one.",
       cue: "Balance efficiency with lived impact before locking rules.",
       options: [
-        {
-          label: "Name the efficiency goal AND the need to avoid unintended harm",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Lead with quotas and targets only",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Delay decision to 'see data later'",
-          effect: { Understanding: -0.2, "Empathy signaled": -0.2, "Clarity of next steps": -0.5 },
-        },
+        { label: "Name the efficiency goal AND the need to avoid unintended harm", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 1 } },
+        { label: "Lead with quotas and targets only", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Delay decision to 'see data later'", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -232,18 +108,9 @@ export const immigrationPolicyDialogue = {
       text: "My work permit renewal stalled. I've sent documents twice and can't pay rent without confirmation.",
       cue: "Signal you hear the risk to livelihood before quoting policy.",
       options: [
-        {
-          label: "Acknowledge housing risk, summarize what was sent, and set a response time",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Repeat the documentation list verbatim",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Say 'system is busy, please wait'",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.7, "Clarity of next steps": -0.5 },
-        },
+        { label: "Acknowledge housing risk, summarize what was sent, and set a response time", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Repeat the documentation list verbatim", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'system is busy, please wait'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -252,18 +119,9 @@ export const immigrationPolicyDialogue = {
       text: "We're under pressure to clear cases. Your file flags a missing letter—rules say deny without it.",
       cue: "Navigate moral tension: uphold rules while protecting dignity.",
       options: [
-        {
-          label: "Offer a guided checklist and a grace period before denial",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Deny immediately and move to the next case",
-          effect: { Understanding: -0.7, "Empathy signaled": -0.8, "Clarity of next steps": -0.3 },
-        },
-        {
-          label: "Ask a supervisor for discretion but give no timeline",
-          effect: { Understanding: -0.2, "Empathy signaled": 0, "Clarity of next steps": -0.4 },
-        },
+        { label: "Offer a guided checklist and a grace period before denial", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Deny immediately and move to the next case", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Ask a supervisor for discretion but give no timeline", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 1, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -272,18 +130,9 @@ export const immigrationPolicyDialogue = {
       text: "If I lose this job, I lose housing. Is there any appeal or temporary approval?",
       cue: "Make the appeal path explicit and time-bound.",
       options: [
-        {
-          label: "Explain the appeal path, offer a dated check-in, and share a contact",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Say 'appeals take months' without details",
-          effect: { Understanding: -0.4, "Empathy signaled": -0.5, "Clarity of next steps": -0.5 },
-        },
-        {
-          label: "Redirect to the website FAQ",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.4, "Clarity of next steps": 0 },
-        },
+        { label: "Explain the appeal path, offer a dated check-in, and share a contact", signals: { "Active Listening": 2, "Emotional Regulation": 1, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Say 'appeals take months' without details", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Redirect to the website FAQ", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -292,18 +141,9 @@ export const immigrationPolicyDialogue = {
       text: "I'm seeing citizen distress and case worker burnout alongside efficiency gains.",
       cue: "Integrate empathy metrics into policy adjustments.",
       options: [
-        {
-          label: "Add humane exceptions, track empathy deltas, and publish appeal timelines",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Stay the course—efficiency is proof of success",
-          effect: { Understanding: -0.6, "Empathy signaled": -0.6, "Clarity of next steps": -0.3 },
-        },
-        {
-          label: "Lower targets but keep opaque criteria",
-          effect: { Understanding: -0.2, "Empathy signaled": -0.1, "Clarity of next steps": -0.4 },
-        },
+        { label: "Add humane exceptions, track empathy deltas, and publish appeal timelines", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 2, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Stay the course—efficiency is proof of success", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Lower targets but keep opaque criteria", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 1, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -312,32 +152,26 @@ export const immigrationPolicyDialogue = {
       text: "With the new guidance, I can grant provisional approvals while documents are chased.",
       cue: "Close the loop with clarity and dignity.",
       options: [
-        {
-          label: "State the provisional approval, next steps, and when you'll confirm",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Announce approval without explaining conditions",
-          effect: { Understanding: 0, "Empathy signaled": 0.1, "Clarity of next steps": -0.3 },
-        },
-        {
-          label: "Send a template email with no personal touch",
-          effect: { Understanding: -0.2, "Empathy signaled": -0.3, "Clarity of next steps": -0.2 },
-        },
+        { label: "State the provisional approval, next steps, and when you'll confirm", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Announce approval without explaining conditions", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Send a template email with no personal touch", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
       ],
     },
   ],
+  signals: ["Active Listening", "Emotional Regulation", "Perspective Taking", "Cultural Sensitivity", "Clarity of Communication", "Collaborative Problem-Solving"],
   metrics: ["Understanding", "Empathy signaled", "Clarity of next steps"],
 };
 
 /* ─────────────────────────────────────────────
    3. Border Control — "Checkpoint Echo"
+   6-Signal Scoring (Phase 1)
    ───────────────────────────────────────────── */
 export const checkpointEchoDialogue = {
   id: "checkpoint-echo",
   title: "Checkpoint Echo — Border Control",
   setup:
     "Step into a high-volume passport control booth at an international airport. Process passengers, coordinate with colleagues, and handle escalating tensions — all while maintaining composure, empathy, and cultural sensitivity.",
+  signalBased: true,
   lines: [
     {
       role: "officer",
@@ -345,18 +179,9 @@ export const checkpointEchoDialogue = {
       text: "Good afternoon. Could you tell me the purpose of your visit and how long you plan to stay?",
       cue: "The passenger is visibly anxious. Recognise your own micro-reaction before continuing.",
       options: [
-        {
-          label: "Soften tone, make eye contact, and invite them to take their time",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Repeat the question louder and slower",
-          effect: { Understanding: -0.5, "Empathy signaled": -1, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Sigh and gesture impatiently at the queue behind",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Soften tone, make eye contact, and invite them to take their time", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 1 } },
+        { label: "Repeat the question louder and slower", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Sigh and gesture impatiently at the queue behind", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -365,18 +190,9 @@ export const checkpointEchoDialogue = {
       text: "I'm sorry — I have my documents, it's just… the visa says one date and the letter says another. I don't know which is right.",
       cue: "Self-regulate: apply a grounding breath before responding. Public attention is growing.",
       options: [
-        {
-          label: "Acknowledge the discrepancy calmly and say you'll help sort it out",
-          effect: { Understanding: 1, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Flag the discrepancy as a violation and call a supervisor immediately",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Say 'This isn't my problem — you should have checked before travelling'",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Acknowledge the discrepancy calmly and say you'll help sort it out", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Flag the discrepancy as a violation and call a supervisor immediately", signals: { "Active Listening": 1, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'This isn't my problem — you should have checked before travelling'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -385,18 +201,9 @@ export const checkpointEchoDialogue = {
       text: "I've been travelling for 22 hours. In my culture we don't look authority figures in the eye — it's a sign of respect, not evasion.",
       cue: "Perspective shift: see the interaction through the passenger's lens — fatigue, cultural norms, limited language.",
       options: [
-        {
-          label: "Thank them for explaining and adjust your body language to match",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Note it internally but continue standard procedure without acknowledging",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Say 'In this country we expect eye contact during questioning'",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Thank them for explaining and adjust your body language to match", signals: { "Active Listening": 2, "Emotional Regulation": 1, "Perspective Taking": 2, "Cultural Sensitivity": 2, "Clarity of Communication": 1, "Collaborative Problem-Solving": 1 } },
+        { label: "Note it internally but continue standard procedure without acknowledging", signals: { "Active Listening": 1, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'In this country we expect eye contact during questioning'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -405,18 +212,9 @@ export const checkpointEchoDialogue = {
       text: "Hey Rowe, I just ran the name — our system shows the visa was renewed last week. The letter might be outdated.",
       cue: "A colleague arrives with contradictory information. Communicate clearly without undermining them in front of the passenger.",
       options: [
-        {
-          label: "Thank the colleague, share the update with the passenger, and confirm the new date together",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Dismiss the colleague's input and say you'll check yourself",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": -0.5 },
-        },
-        {
-          label: "Argue with the colleague about whose data is correct in front of the passenger",
-          effect: { Understanding: -0.5, "Empathy signaled": -1, "Clarity of next steps": -1 },
-        },
+        { label: "Thank the colleague, share the update with the passenger, and confirm the new date together", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Dismiss the colleague's input and say you'll check yourself", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Argue with the colleague about whose data is correct in front of the passenger", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -425,18 +223,9 @@ export const checkpointEchoDialogue = {
       text: "The dates now align. I can clear you here or refer to my supervisor for a secondary check. What feels right given the long journey?",
       cue: "Critical decision: balance procedural compliance with human factors. Each path affects security, passenger flow, and team morale.",
       options: [
-        {
-          label: "Clear at the desk with a note on file, explain next steps, and wish them well",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Refer to supervisor 'just to be safe' without explaining why",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.5, "Clarity of next steps": -0.5 },
-        },
-        {
-          label: "Clear without documentation or follow-up",
-          effect: { Understanding: 0, "Empathy signaled": 0.2, "Clarity of next steps": -1 },
-        },
+        { label: "Clear at the desk with a note on file, explain next steps, and wish them well", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Refer to supervisor 'just to be safe' without explaining why", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Clear without documentation or follow-up", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 1, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -445,32 +234,26 @@ export const checkpointEchoDialogue = {
       text: "A family from a conflict zone is next. Their documents are incomplete and the children are distressed. Cultural norms affect how the parents communicate.",
       cue: "Adapt communication to avoid bias, create psychological safety while maintaining security protocols.",
       options: [
-        {
-          label: "Lower to eye level with the children, speak slowly, offer water, and use a cultural liaison",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Process the family in the standard lane without accommodation",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Separate the family members for individual questioning immediately",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Lower to eye level with the children, speak slowly, offer water, and use a cultural liaison", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 2, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Process the family in the standard lane without accommodation", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Separate the family members for individual questioning immediately", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
   ],
+  signals: ["Active Listening", "Emotional Regulation", "Perspective Taking", "Cultural Sensitivity", "Clarity of Communication", "Collaborative Problem-Solving"],
   metrics: ["Understanding", "Empathy signaled", "Clarity of next steps"],
 };
 
 /* ─────────────────────────────────────────────
    4. Probation / Criminal Justice — "Signal Yard"
+   6-Signal Scoring (Phase 1)
    ───────────────────────────────────────────── */
 export const signalYardDialogue = {
   id: "signal-yard",
   title: "Signal Yard — Probation & Criminal Justice",
   setup:
     "You're a probation officer meeting a recently released offender for a mandatory check-in. The session unfolds from compliance check through crisis disclosure, team risk assessment, and a breach decision — testing trauma-informed practice and moral courage throughout.",
+  signalBased: true,
   lines: [
     {
       role: "probation-officer",
@@ -478,18 +261,9 @@ export const signalYardDialogue = {
       text: "Thanks for coming in, Jordan. Before we start — how are things going since your release? Anything keeping you up at night?",
       cue: "The offender is guarded and monosyllabic. Recognise resistance as a protective response, not defiance.",
       options: [
-        {
-          label: "Name the discomfort in the room and normalise it — 'These check-ins can feel heavy'",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Jump straight to compliance questions — curfew, reporting, employment",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Warn that non-cooperation will be logged as a concern",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Name the discomfort in the room and normalise it — 'These check-ins can feel heavy'", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 1, "Collaborative Problem-Solving": 1 } },
+        { label: "Jump straight to compliance questions — curfew, reporting, employment", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Warn that non-cooperation will be logged as a concern", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -498,18 +272,9 @@ export const signalYardDialogue = {
       text: "I lost the hostel place. I've been sofa-surfing. If I tell housing I'm on licence they won't take me. I don't know what to do.",
       cue: "A housing crisis surfaces. Listen for the shame behind the disclosure before problem-solving.",
       options: [
-        {
-          label: "Acknowledge the courage it took to share, then map out housing options together",
-          effect: { Understanding: 1, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Log the change of address and remind them of reporting requirements",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Say 'That's a breach condition — I have to escalate'",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Acknowledge the courage it took to share, then map out housing options together", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Log the change of address and remind them of reporting requirements", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'That's a breach condition — I have to escalate'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -518,18 +283,9 @@ export const signalYardDialogue = {
       text: "Daniels, Jordan's risk score just jumped. The algorithm flags housing instability as high. Policy says we escalate to recall panel.",
       cue: "Navigate the tension between algorithmic risk scoring and human context. Your colleague is watching.",
       options: [
-        {
-          label: "Present the human context alongside the algorithm and recommend a supported plan before recall",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Accept the algorithm's recommendation without challenge",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Override the algorithm without documenting your reasoning",
-          effect: { Understanding: 0, "Empathy signaled": 0.2, "Clarity of next steps": -1 },
-        },
+        { label: "Present the human context alongside the algorithm and recommend a supported plan before recall", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Accept the algorithm's recommendation without challenge", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Override the algorithm without documenting your reasoning", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 1, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -538,18 +294,9 @@ export const signalYardDialogue = {
       text: "Jordan, I hear you. I need to be straight — the system flagged the housing change. But I want to work with you to keep things on track rather than trigger a recall.",
       cue: "Use motivational interviewing: affirm, reflect, summarise. Keep the person in the conversation.",
       options: [
-        {
-          label: "Ask 'What would stable housing look like for you?' and build the plan from their answer",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "List the conditions they must meet and set a 48-hour deadline",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Say 'I've done what I can — it's up to you now'",
-          effect: { Understanding: -0.5, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Ask 'What would stable housing look like for you?' and build the plan from their answer", signals: { "Active Listening": 2, "Emotional Regulation": 1, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 1, "Collaborative Problem-Solving": 2 } },
+        { label: "List the conditions they must meet and set a 48-hour deadline", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'I've done what I can — it's up to you now'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -558,18 +305,9 @@ export const signalYardDialogue = {
       text: "I missed curfew twice because the sofa I'm on is across town. I know that looks bad. But I'm not reoffending — I'm just trying to survive.",
       cue: "Breach decision: weigh procedural compliance against reintegration. Each path has consequences for trust and public safety.",
       options: [
-        {
-          label: "Acknowledge survival mode, document context, and propose a revised curfew with a review date",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Log the breaches and initiate formal warning without discussion",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Ignore the breaches to avoid paperwork",
-          effect: { Understanding: -0.2, "Empathy signaled": 0, "Clarity of next steps": -1 },
-        },
+        { label: "Acknowledge survival mode, document context, and propose a revised curfew with a review date", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Log the breaches and initiate formal warning without discussion", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Ignore the breaches to avoid paperwork", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 1, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -578,32 +316,26 @@ export const signalYardDialogue = {
       text: "Here's the plan: emergency housing referral today, revised curfew pending accommodation, and we meet again Thursday. I'll confirm everything in writing.",
       cue: "Close the loop with clarity and dignity. Narrate next steps so trust stays intact.",
       options: [
-        {
-          label: "Confirm the plan, hand over written steps, and ask Jordan what support they need between now and Thursday",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Email the plan later without checking Jordan understood",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.3, "Clarity of next steps": -0.5 },
-        },
-        {
-          label: "Say 'You know the drill' and end the session",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": -1 },
-        },
+        { label: "Confirm the plan, hand over written steps, and ask Jordan what support they need between now and Thursday", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Email the plan later without checking Jordan understood", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'You know the drill' and end the session", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
   ],
+  signals: ["Active Listening", "Emotional Regulation", "Perspective Taking", "Cultural Sensitivity", "Clarity of Communication", "Collaborative Problem-Solving"],
   metrics: ["Understanding", "Empathy signaled", "Clarity of next steps"],
 };
 
 /* ─────────────────────────────────────────────
    5. IT / Tech — "Mirror Sprint"
+   6-Signal Scoring (Phase 1)
    ───────────────────────────────────────────── */
 export const mirrorSprintDialogue = {
   id: "mirror-sprint",
   title: "Mirror Sprint — IT & Tech",
   setup:
     "It's the end-of-sprint retrospective for a distributed engineering team. Tension is brewing between delivery pressure and developer wellbeing. Navigate imposter syndrome, conflicting priorities, remote inclusion, and performance conversations — all while building psychological safety.",
+  signalBased: true,
   lines: [
     {
       role: "tech-lead",
@@ -611,18 +343,9 @@ export const mirrorSprintDialogue = {
       text: "Before we look at velocity, I want to check in. This sprint felt heavier than the numbers show. How's everyone doing — honestly?",
       cue: "The junior developer is silent while others say 'fine.' Spot the unspoken signal.",
       options: [
-        {
-          label: "Name the silence gently — 'I notice not everyone has spoken. No pressure, but the door is open'",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Move on to the burndown chart since nobody raised concerns",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Single out the quiet person directly — 'You haven't said anything, what's wrong?'",
-          effect: { Understanding: -0.5, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Name the silence gently — 'I notice not everyone has spoken. No pressure, but the door is open'", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 1, "Collaborative Problem-Solving": 1 } },
+        { label: "Move on to the burndown chart since nobody raised concerns", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Single out the quiet person directly — 'You haven't said anything, what's wrong?'", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -631,18 +354,9 @@ export const mirrorSprintDialogue = {
       text: "I spent two days on something that turned out to be a one-line fix. I feel like I'm slowing the team down and everyone can see it.",
       cue: "Imposter syndrome disclosure. Normalise the learning curve without minimising the feeling.",
       options: [
-        {
-          label: "Share a similar experience of your own, then reframe the two days as deep learning",
-          effect: { Understanding: 1, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Say 'Don't worry, it happens' and move to the next topic",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Suggest pair programming 'so this doesn't happen again'",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
+        { label: "Share a similar experience of your own, then reframe the two days as deep learning", signals: { "Active Listening": 2, "Emotional Regulation": 1, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 1 } },
+        { label: "Say 'Don't worry, it happens' and move to the next topic", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Suggest pair programming 'so this doesn't happen again'", signals: { "Active Listening": 1, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 1 } },
       ],
     },
     {
@@ -651,18 +365,9 @@ export const mirrorSprintDialogue = {
       text: "We're three features behind roadmap. Stakeholders are asking why we spent cycles on tech debt instead of shipping. Can we reprioritise?",
       cue: "Conflicting priorities: tech debt vs. features. Advocate without dismissing business pressure.",
       options: [
-        {
-          label: "Acknowledge the pressure, then show how tech debt reduction prevented two outages this quarter",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Agree to drop all tech debt and commit to feature-only sprints",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Say 'You don't understand engineering' and shut the conversation down",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -1 },
-        },
+        { label: "Acknowledge the pressure, then show how tech debt reduction prevented two outages this quarter", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Agree to drop all tech debt and commit to feature-only sprints", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Say 'You don't understand engineering' and shut the conversation down", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -671,18 +376,9 @@ export const mirrorSprintDialogue = {
       text: "I've noticed our remote team members drop off calls early and rarely speak in retros. I want to make sure everyone feels included, not just the in-office crew.",
       cue: "Remote inclusion challenge: create equitable participation without calling people out.",
       options: [
-        {
-          label: "Propose async retro input before the call and rotate who speaks first each session",
-          effect: { Understanding: 0.5, "Empathy signaled": 1, "Clarity of next steps": 0.5 },
-        },
-        {
-          label: "Ask remote members to turn cameras on so you can 'read the room'",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": 0 },
-        },
-        {
-          label: "Accept it as a remote-work trade-off and move on",
-          effect: { Understanding: -0.5, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Propose async retro input before the call and rotate who speaks first each session", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 2, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Ask remote members to turn cameras on so you can 'read the room'", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
+        { label: "Accept it as a remote-work trade-off and move on", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -691,18 +387,9 @@ export const mirrorSprintDialogue = {
       text: "Kai, I want to talk about your growth. You've made real progress but there are areas to stretch. How do you want to receive feedback — written, live, or paired review?",
       cue: "Performance conversation: lead with autonomy and choice. Feedback should build, not break.",
       options: [
-        {
-          label: "Let Kai choose the format, set a follow-up date, and highlight one specific strength first",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Send a written review without discussion and mark it as 'FYI'",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": -0.5 },
-        },
-        {
-          label: "Give feedback in the public retro channel for transparency",
-          effect: { Understanding: -1, "Empathy signaled": -1, "Clarity of next steps": -0.5 },
-        },
+        { label: "Let Kai choose the format, set a follow-up date, and highlight one specific strength first", signals: { "Active Listening": 2, "Emotional Regulation": 2, "Perspective Taking": 1, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Send a written review without discussion and mark it as 'FYI'", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Give feedback in the public retro channel for transparency", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
       ],
     },
     {
@@ -711,21 +398,13 @@ export const mirrorSprintDialogue = {
       text: "Team, I want to close this retro differently. Let's each name one thing that recharged us this sprint and one thing that drained us. I'll go first.",
       cue: "Psychological safety: model vulnerability as the leader. Close with energy, not just action items.",
       options: [
-        {
-          label: "Share your own 'recharge' and 'drain' honestly, then thank each person who contributes",
-          effect: { Understanding: 0.5, "Empathy signaled": 0.5, "Clarity of next steps": 1 },
-        },
-        {
-          label: "Skip the exercise because the meeting is over time",
-          effect: { Understanding: -0.5, "Empathy signaled": -0.5, "Clarity of next steps": -0.5 },
-        },
-        {
-          label: "Assign the exercise as homework and review answers next sprint",
-          effect: { Understanding: -0.3, "Empathy signaled": -0.3, "Clarity of next steps": 0 },
-        },
+        { label: "Share your own 'recharge' and 'drain' honestly, then thank each person who contributes", signals: { "Active Listening": 1, "Emotional Regulation": 2, "Perspective Taking": 2, "Cultural Sensitivity": 1, "Clarity of Communication": 2, "Collaborative Problem-Solving": 2 } },
+        { label: "Skip the exercise because the meeting is over time", signals: { "Active Listening": 0, "Emotional Regulation": 0, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 0, "Collaborative Problem-Solving": 0 } },
+        { label: "Assign the exercise as homework and review answers next sprint", signals: { "Active Listening": 0, "Emotional Regulation": 1, "Perspective Taking": 0, "Cultural Sensitivity": 0, "Clarity of Communication": 1, "Collaborative Problem-Solving": 0 } },
       ],
     },
   ],
+  signals: ["Active Listening", "Emotional Regulation", "Perspective Taking", "Cultural Sensitivity", "Clarity of Communication", "Collaborative Problem-Solving"],
   metrics: ["Understanding", "Empathy signaled", "Clarity of next steps"],
 };
 
@@ -827,7 +506,7 @@ export const scenarioLibrary = [
       "Build humane exceptions and clear appeal paths into the system by design.",
     ],
   },
-  /* ── New: Border Control ────────────────── */
+  /* ── Border Control ────────────────── */
   {
     id: "checkpoint-echo",
     title: "Checkpoint Echo – Border Control",
@@ -861,7 +540,7 @@ export const scenarioLibrary = [
       "Narrate next steps clearly so the passenger and colleagues stay informed.",
     ],
   },
-  /* ── New: Probation / Criminal Justice ──── */
+  /* ── Probation / Criminal Justice ──── */
   {
     id: "signal-yard",
     title: "Signal Yard – Probation & Justice",
@@ -895,7 +574,7 @@ export const scenarioLibrary = [
       "Co-create reintegration plans with the person, not just for them.",
     ],
   },
-  /* ── New: IT / Tech ─────────────────────── */
+  /* ── IT / Tech ─────────────────────── */
   {
     id: "mirror-sprint",
     title: "Mirror Sprint – IT & Tech",

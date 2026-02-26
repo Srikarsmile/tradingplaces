@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
   REPORT_STORAGE_KEY,
@@ -6,14 +7,21 @@ import {
   deriveLearningsFromNotes,
 } from "../utils/reportUtils";
 import { dialogueScenarios, scenarioLibrary } from "../constants/scenarios";
+import { SIGNALS, SIGNAL_LABELS, calcSignalAverages, compositeScore } from "../constants/scoringConstants";
 import EmpathyGauge from "../components/EmpathyGauge";
 import Beats from "../components/Beats";
 import MetricBar from "../components/MetricBar";
+import VoiceRecordButton from "../components/VoiceRecordButton";
+import useVoiceRecorder from "../hooks/useVoiceRecorder";
+
+const DEBRIEF_KEY = "TP_DEBRIEF_DATA";
 
 export default function Scenario() {
+  const navigate = useNavigate();
   const { username, email } = useAuth();
   const [activeId, setActiveId] = useState(scenarioLibrary[0].id);
   const [notes, setNotes] = useState("");
+  const voiceRecorder = useVoiceRecorder();
   const [scores, setScores] = useState(() =>
     Object.fromEntries(
       scenarioLibrary.map((s) => [s.id, { customer: 3, manager: 3 }])
@@ -58,8 +66,34 @@ export default function Scenario() {
     Math.round(
       (Object.values(dialogueScores).reduce((a, b) => a + b, 0) /
         activeDialogue.metrics.length) *
-        10
+      10
     ) / 10;
+
+  // 6-signal scoring
+  const is6Signal = !!activeDialogue.signalBased;
+  const signalAverages = useMemo(() => {
+    if (!is6Signal) return {};
+    return calcSignalAverages(dialogueSelections, activeDialogue.lines);
+  }, [is6Signal, dialogueSelections, activeDialogue.lines]);
+  const composite6 = is6Signal ? compositeScore(signalAverages) : null;
+  const isComplete = dialogueSelections.every((s) => s != null);
+
+  // Save debrief data for the debrief page
+  useEffect(() => {
+    if (!is6Signal || !isComplete) return;
+    const debriefPayload = {
+      scenarioId: activeDialogue.id,
+      selections: dialogueSelections,
+      signalAverages,
+      composite: composite6,
+      timestamp: new Date().toISOString(),
+    };
+    try {
+      localStorage.setItem(DEBRIEF_KEY, JSON.stringify(debriefPayload));
+    } catch (e) {
+      console.error("Failed to save debrief data", e);
+    }
+  }, [is6Signal, isComplete, dialogueSelections, signalAverages, composite6, activeDialogue.id]);
 
   useEffect(() => {
     setDialogueIndex(0);
@@ -197,11 +231,10 @@ export default function Scenario() {
               <button
                 key={item.id}
                 onClick={() => setActiveDialogueId(item.id)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-                  isActive
+                className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${isActive
                     ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
                     : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
-                }`}
+                  }`}
                 aria-pressed={isActive}
                 aria-label={`Select ${item.title} scenario`}
               >
@@ -227,11 +260,10 @@ export default function Scenario() {
               <button
                 key={role}
                 onClick={() => setActiveDialogueRole(role)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-                  activeDialogueRole === role
+                className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${activeDialogueRole === role
                     ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
                     : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50"
-                }`}
+                  }`}
                 aria-pressed={activeDialogueRole === role}
                 aria-label={`Play as ${role}`}
               >
@@ -271,11 +303,10 @@ export default function Scenario() {
               <div className="rounded-xl bg-[var(--surface-700)] border border-[var(--surface-500)] p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span
-                    className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                      dialogueLine.role === "manager"
+                    className={`text-xs font-semibold px-3 py-1 rounded-full ${dialogueLine.role === "manager"
                         ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
                         : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
-                    }`}
+                      }`}
                   >
                     {dialogueLine.persona} — {dialogueLine.role}
                   </span>
@@ -302,22 +333,20 @@ export default function Scenario() {
                         <button
                           key={opt.label}
                           onClick={() => handleSelectOption(idx)}
-                          className={`w-full text-left px-4 py-3 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-                            isSelected
+                          className={`w-full text-left px-4 py-3 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${isSelected
                               ? "bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)] text-[var(--text-primary)] glow-cyan"
                               : "bg-[var(--surface-600)] border-[var(--surface-500)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
-                          }`}
+                            }`}
                           aria-pressed={isSelected}
                           aria-label={`Select response: ${opt.label}`}
                         >
                           <span className="block text-sm font-semibold">{opt.label}</span>
-                          <span className="block text-xs font-mono text-[var(--text-tertiary)] mt-0.5">
-                            Impact → U:{opt.effect.Understanding > 0 ? "+" : ""}
-                            {opt.effect.Understanding} | E:
-                            {opt.effect["Empathy signaled"] > 0 ? "+" : ""}
-                            {opt.effect["Empathy signaled"]} | C:
-                            {opt.effect["Clarity of next steps"] > 0 ? "+" : ""}
-                            {opt.effect["Clarity of next steps"]}
+                          <span className="block text-[10px] font-mono text-[var(--text-tertiary)] mt-0.5">
+                            {is6Signal && opt.signals
+                              ? SIGNALS.map((s) => `${SIGNAL_LABELS[s]}:${opt.signals[s]}`).join(" · ")
+                              : opt.effect
+                                ? `Impact → U:${opt.effect.Understanding > 0 ? "+" : ""}${opt.effect.Understanding} | E:${opt.effect["Empathy signaled"] > 0 ? "+" : ""}${opt.effect["Empathy signaled"]} | C:${opt.effect["Clarity of next steps"] > 0 ? "+" : ""}${opt.effect["Clarity of next steps"]}`
+                                : ""}
                           </span>
                         </button>
                       );
@@ -325,6 +354,19 @@ export default function Scenario() {
                   </div>
                 </div>
               </div>
+
+              {/* Voice recording for this beat */}
+              {is6Signal && (
+                <div className="mt-3">
+                  <VoiceRecordButton
+                    isRecording={voiceRecorder.isRecording}
+                    hasRecording={voiceRecorder.hasRecording(`${activeDialogue.id}-${dialogueIndex}`)}
+                    audioUrl={voiceRecorder.getRecording(`${activeDialogue.id}-${dialogueIndex}`)?.url || null}
+                    onStart={() => voiceRecorder.startRecording(`${activeDialogue.id}-${dialogueIndex}`)}
+                    onStop={() => voiceRecorder.stopRecording()}
+                  />
+                </div>
+              )}
 
               <div className="flex flex-wrap gap-3">
                 <button
@@ -337,12 +379,11 @@ export default function Scenario() {
                     dialogueIndex === activeDialogue.lines.length - 1 ||
                     dialogueSelections[dialogueIndex] == null
                   }
-                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-                    dialogueIndex === activeDialogue.lines.length - 1 ||
-                    dialogueSelections[dialogueIndex] == null
+                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${dialogueIndex === activeDialogue.lines.length - 1 ||
+                      dialogueSelections[dialogueIndex] == null
                       ? "bg-[var(--surface-500)] text-[var(--text-tertiary)] cursor-not-allowed"
                       : "bg-[var(--accent-cyan)] text-[var(--text-inverse)] glow-cyan"
-                  }`}
+                    }`}
                   aria-label="Continue to next dialogue line"
                 >
                   Next line
@@ -363,10 +404,18 @@ export default function Scenario() {
                 >
                   Restart dialogue
                 </button>
-                {dialogueIndex === activeDialogue.lines.length - 1 && (
+                {dialogueIndex === activeDialogue.lines.length - 1 && isComplete && (
                   <span className="text-xs font-semibold text-[var(--accent-emerald)] flex items-center gap-1">
-                    ✓ Conversation complete — rate your delivery below.
+                    ✓ Conversation complete
                   </span>
+                )}
+                {is6Signal && isComplete && dialogueIndex === activeDialogue.lines.length - 1 && (
+                  <button
+                    onClick={() => navigate("/workspace/debrief")}
+                    className="px-5 py-2.5 rounded-full text-sm font-semibold bg-emerald-500 text-white hover:bg-emerald-400 transition-all glow-cyan"
+                  >
+                    View Debrief →
+                  </button>
                 )}
               </div>
             </div>
@@ -413,11 +462,10 @@ export default function Scenario() {
           <button
             key={item.id}
             onClick={() => setActiveId(item.id)}
-            className={`px-4 py-2.5 rounded-full border text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-              item.id === scenario.id
+            className={`px-4 py-2.5 rounded-full border text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${item.id === scenario.id
                 ? "bg-[var(--accent-cyan)] text-[var(--text-inverse)] border-transparent glow-cyan"
                 : "bg-[var(--surface-700)] text-[var(--text-secondary)] border-[var(--surface-500)] hover:border-[var(--accent-cyan)]/50"
-            }`}
+              }`}
             aria-pressed={item.id === scenario.id}
             aria-label={`Select ${item.title} scenario`}
           >
