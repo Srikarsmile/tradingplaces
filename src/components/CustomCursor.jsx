@@ -20,9 +20,9 @@ export default function CustomCursor() {
 
         let lastFrame = 0;
         const animate = (now) => {
-            if (now - lastFrame >= 33) {
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
+            if (now - lastFrame >= 16) {
+                ringX += (mouseX - ringX) * 0.35;
+                ringY += (mouseY - ringY) * 0.35;
                 ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
                 lastFrame = now;
             }

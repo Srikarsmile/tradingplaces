@@ -225,11 +225,10 @@ export default function Dashboard() {
                             {sig.title}
                           </p>
                           <span
-                            className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${
-                              isGood
+                            className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${isGood
                                 ? "bg-[var(--accent-emerald-subtle)] text-[var(--accent-emerald)]"
                                 : "bg-[var(--accent-amber-subtle)] text-[var(--accent-amber)]"
-                            }`}
+                              }`}
                           >
                             {isGood ? "Good" : "Improve"}
                           </span>
@@ -244,10 +243,10 @@ export default function Dashboard() {
                               width: `${percentage}%`,
                               background: isGood
                                 ? "linear-gradient(90deg, #34d399, #10b981)"
-                                : "linear-gradient(90deg, #fbbf24, #f59e0b)",
+                                : "linear-gradient(90deg, #4DD0E1, #00E5FF)",
                               boxShadow: isGood
                                 ? "0 0 10px rgba(52, 211, 153, 0.3)"
-                                : "0 0 10px rgba(251, 191, 36, 0.3)",
+                                : "0 0 10px rgba(0, 229, 255, 0.3)",
                               animation: "progress-fill 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
                             }}
                           />
@@ -302,8 +301,8 @@ export default function Dashboard() {
                               entry.name === "Understanding"
                                 ? COLORS.understanding
                                 : entry.name === "Empathy"
-                                ? COLORS.empathy
-                                : COLORS.clarity
+                                  ? COLORS.empathy
+                                  : COLORS.clarity
                             }
                           />
                         ))}

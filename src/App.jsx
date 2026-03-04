@@ -16,6 +16,7 @@ import Auth from "./pages/Auth";
 import Terms from "./pages/Terms";
 import Assessment from "./pages/Assessment";
 import Debrief from "./pages/Debrief";
+import Disclaimer from "./pages/Disclaimer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="pulse" element={<CulturePulse />} />
           <Route path="assessment" element={<Assessment />} />
           <Route path="debrief" element={<Debrief />} />
+          <Route path="disclaimer" element={<Disclaimer />} />
         </Route>
       </Routes>
     </SmoothScroll>

@@ -35,7 +35,7 @@ function SignalBar({ signal, showRerun, rerunScore }) {
 
     const getToneStyle = (score) => {
         if (score >= 2) return { bg: "linear-gradient(90deg, #34d399, #10b981)", shadow: "0 0 12px rgba(52, 211, 153, 0.3)", badge: "bg-[var(--accent-emerald-subtle)] text-[var(--accent-emerald)]" };
-        if (score >= 1) return { bg: "linear-gradient(90deg, #fbbf24, #f59e0b)", shadow: "0 0 12px rgba(251, 191, 36, 0.3)", badge: "bg-[var(--accent-amber-subtle)] text-[var(--accent-amber)]" };
+        if (score >= 1) return { bg: "linear-gradient(90deg, #4DD0E1, #00E5FF)", shadow: "0 0 12px rgba(0, 229, 255, 0.3)", badge: "bg-[var(--accent-primary-subtle)] text-[var(--accent-primary)]" };
         return { bg: "linear-gradient(90deg, #f43f5e, #e11d48)", shadow: "0 0 12px rgba(244, 63, 94, 0.3)", badge: "bg-[var(--accent-rose-subtle)] text-[var(--accent-rose)]" };
     };
 
@@ -67,13 +67,12 @@ function SignalBar({ signal, showRerun, rerunScore }) {
                     <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-[var(--text-tertiary)]">Re-run score</span>
                         <span
-                            className={`font-bold font-mono ${
-                                rerunScore > signal.score
+                            className={`font-bold font-mono ${rerunScore > signal.score
                                     ? "text-[var(--accent-emerald)]"
                                     : rerunScore === signal.score
                                         ? "text-[var(--text-tertiary)]"
                                         : "text-[var(--accent-rose)]"
-                            }`}
+                                }`}
                         >
                             {rerunScore}/2{" "}
                             {rerunScore > signal.score ? "↑" : rerunScore < signal.score ? "↓" : "—"}
@@ -103,11 +102,10 @@ function ChoiceTimeline({ selections, lines, flaggedIndices }) {
                 return (
                     <div
                         key={idx}
-                        className={`rounded-xl border p-4 transition-all ${
-                            isFlagged
+                        className={`rounded-xl border p-4 transition-all ${isFlagged
                                 ? "border-[var(--accent-rose)]/30 bg-[var(--accent-rose-subtle)]"
                                 : "border-[var(--surface-500)] bg-[var(--surface-700)]"
-                        }`}
+                            }`}
                     >
                         <div className="flex items-start justify-between gap-3">
                             <div className="flex-1">
@@ -267,11 +265,10 @@ export default function Assessment() {
                 <div className="glass-card-elevated p-6 mb-6">
                     <div className="flex items-center gap-2 mb-4">
                         <span
-                            className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                                line.role === "officer"
+                            className={`text-xs font-semibold px-3 py-1 rounded-full ${line.role === "officer"
                                     ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
                                     : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
-                            }`}
+                                }`}
                         >
                             {line.persona} — {line.role}
                         </span>
@@ -291,11 +288,10 @@ export default function Assessment() {
                                 <button
                                     key={idx}
                                     onClick={() => handleRunSelect(idx)}
-                                    className={`w-full text-left px-5 py-4 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-                                        isActive
+                                    className={`w-full text-left px-5 py-4 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${isActive
                                             ? "bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)] text-[var(--text-primary)] glow-cyan"
                                             : "bg-[var(--surface-600)] border-[var(--surface-500)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)]/50 hover:text-[var(--text-primary)]"
-                                    }`}
+                                        }`}
                                     aria-pressed={isActive}
                                 >
                                     <span className="block text-sm font-semibold">{opt.label}</span>
@@ -310,11 +306,10 @@ export default function Assessment() {
                         <button
                             onClick={handleRunNext}
                             disabled={selected == null}
-                            className={`px-6 py-3 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${
-                                selected == null
+                            className={`px-6 py-3 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-cyan)] ${selected == null
                                     ? "bg-[var(--surface-500)] text-[var(--text-tertiary)] cursor-not-allowed"
                                     : "btn-primary"
-                            }`}
+                                }`}
                         >
                             Next moment →
                         </button>
@@ -483,16 +478,14 @@ export default function Assessment() {
                                                     </p>
                                                 </div>
                                                 <div
-                                                    className={`rounded-xl border p-3 ${
-                                                        improved
+                                                    className={`rounded-xl border p-3 ${improved
                                                             ? "bg-[var(--accent-emerald-subtle)] border-[var(--accent-emerald)]/20"
                                                             : "bg-[var(--accent-amber-subtle)] border-[var(--accent-amber)]/20"
-                                                    }`}
+                                                        }`}
                                                 >
                                                     <p
-                                                        className={`text-xs font-semibold mb-1 ${
-                                                            improved ? "text-[var(--accent-emerald)]" : "text-[var(--accent-amber)]"
-                                                        }`}
+                                                        className={`text-xs font-semibold mb-1 ${improved ? "text-[var(--accent-emerald)]" : "text-[var(--accent-amber)]"
+                                                            }`}
                                                     >
                                                         Re-run (with coaching)
                                                     </p>
@@ -500,9 +493,8 @@ export default function Assessment() {
                                                         {rerunChoice != null ? line.options[rerunChoice].label : "—"}
                                                     </p>
                                                     <p
-                                                        className={`text-xs font-bold font-mono mt-1 ${
-                                                            improved ? "text-[var(--accent-emerald)]" : "text-[var(--accent-amber)]"
-                                                        }`}
+                                                        className={`text-xs font-bold font-mono mt-1 ${improved ? "text-[var(--accent-emerald)]" : "text-[var(--accent-amber)]"
+                                                            }`}
                                                     >
                                                         Score: {newScore}/2 {improved ? "↑ Improved" : ""}
                                                     </p>
@@ -582,11 +574,10 @@ export default function Assessment() {
                 <div className="glass-card-elevated p-6 mb-6">
                     <div className="flex items-center gap-2 mb-4">
                         <span
-                            className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                                line.role === "officer"
+                            className={`text-xs font-semibold px-3 py-1 rounded-full ${line.role === "officer"
                                     ? "bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]"
                                     : "bg-[var(--accent-pink-subtle)] text-[var(--accent-pink)]"
-                            }`}
+                                }`}
                         >
                             {line.persona} — {line.role}
                         </span>
@@ -616,11 +607,10 @@ export default function Assessment() {
                                 <button
                                     key={idx}
                                     onClick={() => handleRerunSelect(idx)}
-                                    className={`w-full text-left px-5 py-4 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-emerald)] ${
-                                        isActive
+                                    className={`w-full text-left px-5 py-4 rounded-xl border transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-emerald)] ${isActive
                                             ? "bg-[var(--accent-emerald-subtle)] border-[var(--accent-emerald)] text-[var(--text-primary)]"
                                             : "bg-[var(--surface-600)] border-[var(--surface-500)] text-[var(--text-secondary)] hover:border-[var(--accent-emerald)]/50"
-                                    }`}
+                                        }`}
                                     aria-pressed={isActive}
                                 >
                                     <span className="block text-sm font-semibold">{opt.label}</span>
@@ -635,11 +625,10 @@ export default function Assessment() {
                         <button
                             onClick={handleRerunNext}
                             disabled={selected == null}
-                            className={`px-6 py-3 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-emerald)] ${
-                                selected == null
+                            className={`px-6 py-3 rounded-full text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--accent-emerald)] ${selected == null
                                     ? "bg-[var(--surface-500)] text-[var(--text-tertiary)] cursor-not-allowed"
                                     : "bg-[var(--accent-emerald)] text-[var(--text-inverse)]"
-                            }`}
+                                }`}
                             style={selected != null ? { boxShadow: "0 0 20px rgba(52, 211, 153, 0.15)" } : undefined}
                         >
                             Next moment →

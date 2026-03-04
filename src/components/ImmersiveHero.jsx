@@ -11,15 +11,15 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 
 // ── Color palette (matches design tokens) ──
 const COLORS = {
-    amber: new THREE.Color(0xf59e0b),
-    violet: new THREE.Color(0x8b5cf6),
+    neonCyan: new THREE.Color(0x00E5FF),
+    hotPink: new THREE.Color(0xFF4EBE),
     cyan: new THREE.Color(0x06b6d4),
-    deepViolet: new THREE.Color(0x7c3aed),
+    deepPink: new THREE.Color(0xE91E9C),
     white: new THREE.Color(0xeef0f6),
     bg: new THREE.Color(0x08090e),
 };
 
-const PALETTE = [COLORS.amber, COLORS.violet, COLORS.cyan, COLORS.deepViolet, COLORS.white];
+const PALETTE = [COLORS.neonCyan, COLORS.hotPink, COLORS.cyan, COLORS.deepPink, COLORS.white];
 
 // ── Noise helper for organic movement ──
 function fbm(x, y, z, t) {
@@ -81,11 +81,11 @@ const ImmersiveHero = () => {
         scene.add(ambientLight);
 
         // Colored directional lights for dramatic atmosphere
-        const light1 = new THREE.PointLight(0xf59e0b, 2, 60);
+        const light1 = new THREE.PointLight(0x00E5FF, 2, 60);
         light1.position.set(15, 10, 20);
         scene.add(light1);
 
-        const light2 = new THREE.PointLight(0x8b5cf6, 2, 60);
+        const light2 = new THREE.PointLight(0xFF4EBE, 2, 60);
         light2.position.set(-15, -5, 15);
         scene.add(light2);
 
@@ -148,11 +148,11 @@ const ImmersiveHero = () => {
         // ══════════════════════════
         const crystals = [];
         const crystalConfigs = [
-            { geo: new THREE.IcosahedronGeometry(1.8, 0), color: COLORS.amber, pos: [8, 4, 5], rotSpeed: [0.002, 0.003, 0.001] },
-            { geo: new THREE.OctahedronGeometry(1.5, 0), color: COLORS.violet, pos: [-10, -3, 0], rotSpeed: [0.003, 0.001, 0.002] },
+            { geo: new THREE.IcosahedronGeometry(1.8, 0), color: COLORS.neonCyan, pos: [8, 4, 5], rotSpeed: [0.002, 0.003, 0.001] },
+            { geo: new THREE.OctahedronGeometry(1.5, 0), color: COLORS.hotPink, pos: [-10, -3, 0], rotSpeed: [0.003, 0.001, 0.002] },
             { geo: new THREE.TetrahedronGeometry(1.2, 0), color: COLORS.cyan, pos: [5, -6, -5], rotSpeed: [0.001, 0.004, 0.002] },
-            { geo: new THREE.IcosahedronGeometry(2.2, 1), color: COLORS.deepViolet, pos: [-6, 7, -8], rotSpeed: [0.002, 0.002, 0.003] },
-            { geo: new THREE.DodecahedronGeometry(1.0, 0), color: COLORS.amber, pos: [12, -2, -3], rotSpeed: [0.003, 0.002, 0.001] },
+            { geo: new THREE.IcosahedronGeometry(2.2, 1), color: COLORS.deepPink, pos: [-6, 7, -8], rotSpeed: [0.002, 0.002, 0.003] },
+            { geo: new THREE.DodecahedronGeometry(1.0, 0), color: COLORS.neonCyan, pos: [12, -2, -3], rotSpeed: [0.003, 0.002, 0.001] },
             { geo: new THREE.OctahedronGeometry(0.8, 0), color: COLORS.cyan, pos: [-4, 5, 10], rotSpeed: [0.002, 0.003, 0.004] },
         ];
 
@@ -214,7 +214,7 @@ const ImmersiveHero = () => {
         // ══════════════════════════
         const coreGeo = new THREE.SphereGeometry(1.5, 32, 32);
         const coreMat = new THREE.MeshBasicMaterial({
-            color: COLORS.amber,
+            color: COLORS.neonCyan,
             transparent: true,
             opacity: 0.04,
         });
@@ -224,7 +224,7 @@ const ImmersiveHero = () => {
         // Outer ring
         const ringGeo = new THREE.TorusGeometry(3, 0.02, 8, 100);
         const ringMat = new THREE.MeshBasicMaterial({
-            color: COLORS.violet,
+            color: COLORS.hotPink,
             transparent: true,
             opacity: 0.3,
         });

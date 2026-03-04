@@ -51,7 +51,7 @@ const AuroraBackground = () => {
         const blobs = [
             {
                 // Warm Amber glow (top-left)
-                color: [245, 158, 11],
+                color: [0, 229, 255],
                 baseX: 0.25, baseY: 0.2,
                 radiusX: 0.45, radiusY: 0.4,
                 speed: 0.3, phase: 0,
@@ -60,7 +60,7 @@ const AuroraBackground = () => {
             },
             {
                 // Electric Violet glow (center-right)
-                color: [139, 92, 246],
+                color: [255, 78, 190],
                 baseX: 0.7, baseY: 0.45,
                 radiusX: 0.5, radiusY: 0.45,
                 speed: 0.25, phase: 2,
@@ -112,8 +112,8 @@ const AuroraBackground = () => {
                 pulsePhase: Math.random() * Math.PI * 2,
                 // Color: randomly pick from accent palette
                 color: [
-                    [245, 158, 11],
-                    [139, 92, 246],
+                    [0, 229, 255],
+                    [255, 78, 190],
                     [6, 182, 212],
                     [238, 240, 246],
                 ][Math.floor(Math.random() * 4)],

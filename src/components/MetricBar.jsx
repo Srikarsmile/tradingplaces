@@ -6,8 +6,8 @@ const toneStyles = {
     shadow: "0 0 12px rgba(52, 211, 153, 0.3)",
   },
   medium: {
-    bg: "linear-gradient(90deg, #fbbf24, #f59e0b)",
-    shadow: "0 0 12px rgba(251, 191, 36, 0.3)",
+    bg: "linear-gradient(90deg, #4DD0E1, #00E5FF)",
+    shadow: "0 0 12px rgba(0, 229, 255, 0.3)",
   },
   low: {
     bg: "linear-gradient(90deg, #f43f5e, #e11d48)",

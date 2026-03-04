@@ -32,11 +32,11 @@ const ThreeCanvas = () => {
         dirLight1.position.set(5, 5, 5);
         scene.add(dirLight1);
 
-        const dirLight2 = new THREE.DirectionalLight(0xf59e0b, 1.5); // Warm Amber
+        const dirLight2 = new THREE.DirectionalLight(0x00E5FF, 1.5); // Neon Cyan
         dirLight2.position.set(-5, 5, -5);
         scene.add(dirLight2);
 
-        const dirLight3 = new THREE.DirectionalLight(0x8b5cf6, 1.0); // Electric Violet
+        const dirLight3 = new THREE.DirectionalLight(0xFF4EBE, 1.0); // Hot Pink
         dirLight3.position.set(0, -5, 5);
         scene.add(dirLight3);
 

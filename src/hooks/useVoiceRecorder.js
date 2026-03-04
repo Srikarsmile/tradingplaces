@@ -1,15 +1,28 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { saveRecording, loadAllRecordings } from "../lib/audioStorage";
 
 /**
  * Custom hook for recording voice using the MediaRecorder API.
- * Stores recordings in memory (blobs) keyed by scenario + beat.
+ * Persists recordings to IndexedDB so they survive page refreshes.
+ * Keyed by "scenarioId-beatIdx".
  */
 export default function useVoiceRecorder() {
     const [isRecording, setIsRecording] = useState(false);
-    const [recordings, setRecordings] = useState({}); // key: "scenarioId-beatIdx" → { blob, url }
+    const [recordings, setRecordings] = useState({}); // key → { blob, url, timestamp }
     const mediaRecorderRef = useRef(null);
     const chunksRef = useRef([]);
     const streamRef = useRef(null);
+
+    // Load persisted recordings from IndexedDB on mount
+    useEffect(() => {
+        let cancelled = false;
+        loadAllRecordings().then((saved) => {
+            if (!cancelled && saved && Object.keys(saved).length > 0) {
+                setRecordings((prev) => ({ ...saved, ...prev }));
+            }
+        });
+        return () => { cancelled = true; };
+    }, []);
 
     const startRecording = useCallback(async (key) => {
         try {
@@ -31,10 +44,13 @@ export default function useVoiceRecorder() {
             mediaRecorder.onstop = () => {
                 const blob = new Blob(chunksRef.current, { type: "audio/webm" });
                 const url = URL.createObjectURL(blob);
-                setRecordings((prev) => ({
-                    ...prev,
-                    [key]: { blob, url, timestamp: Date.now() },
-                }));
+                const entry = { blob, url, timestamp: Date.now() };
+
+                setRecordings((prev) => ({ ...prev, [key]: entry }));
+
+                // Persist to IndexedDB in background
+                saveRecording(key, blob);
+
                 // Stop all tracks to release mic
                 streamRef.current?.getTracks().forEach((t) => t.stop());
                 streamRef.current = null;

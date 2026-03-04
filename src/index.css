@@ -19,17 +19,17 @@
   --text-tertiary: #6b7194;
   --text-inverse: #08090e;
 
-  /* ── Accent: Primary (Warm Amber) ── */
-  --accent-primary: #f59e0b;
-  --accent-primary-dim: #d97706;
-  --accent-primary-glow: rgba(245, 158, 11, 0.25);
-  --accent-primary-subtle: rgba(245, 158, 11, 0.08);
+  /* ── Accent: Primary (Neon Cyan) ── */
+  --accent-primary: #00E5FF;
+  --accent-primary-dim: #00B8D4;
+  --accent-primary-glow: rgba(0, 229, 255, 0.25);
+  --accent-primary-subtle: rgba(0, 229, 255, 0.08);
 
-  /* ── Accent: Secondary (Electric Violet) ── */
-  --accent-secondary: #8b5cf6;
-  --accent-secondary-dim: #7c3aed;
-  --accent-secondary-glow: rgba(139, 92, 246, 0.25);
-  --accent-secondary-subtle: rgba(139, 92, 246, 0.08);
+  /* ── Accent: Secondary (Hot Pink) ── */
+  --accent-secondary: #FF4EBE;
+  --accent-secondary-dim: #E91E9C;
+  --accent-secondary-glow: rgba(255, 78, 190, 0.25);
+  --accent-secondary-subtle: rgba(255, 78, 190, 0.08);
 
   /* ── Accent: Tertiary (Cyan) ── */
   --accent-tertiary: #06b6d4;
@@ -66,8 +66,8 @@
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.8);
-  --shadow-glow-primary: 0 0 30px rgba(245, 158, 11, 0.15), 0 0 80px rgba(245, 158, 11, 0.08);
-  --shadow-glow-secondary: 0 0 30px rgba(139, 92, 246, 0.15), 0 0 80px rgba(139, 92, 246, 0.08);
+  --shadow-glow-primary: 0 0 30px rgba(0, 229, 255, 0.15), 0 0 80px rgba(0, 229, 255, 0.08);
+  --shadow-glow-secondary: 0 0 30px rgba(255, 78, 190, 0.15), 0 0 80px rgba(255, 78, 190, 0.08);
 
   /* ── Transitions ── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -105,23 +105,13 @@ body {
   cursor: none;
 }
 
-/* ── Custom cursor hover state ── */
+/* Custom cursor hover state */
 .custom-cursor-ring.cursor-active {
   width: 56px !important;
   height: 56px !important;
   margin-left: -8px;
   margin-top: -8px;
   border-color: rgba(255, 255, 255, 0.8) !important;
-}
-
-/* Hide cursor on all elements */
-a,
-button,
-input,
-textarea,
-select,
-[role="button"] {
-  cursor: none !important;
 }
 
 /* 
@@ -272,11 +262,11 @@ button:not(:disabled):active {
 }
 
 .glow-primary-text {
-  text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
 }
 
 .glow-secondary-text {
-  text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  text-shadow: 0 0 20px rgba(255, 78, 190, 0.4);
 }
 
 /* ═══════════════════════════
@@ -315,8 +305,8 @@ button:not(:disabled):active {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(245, 158, 11, 0.14) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(0, 229, 255, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(255, 78, 190, 0.12) 0%, transparent 60%),
     radial-gradient(ellipse 50% 50% at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 70%),
     linear-gradient(160deg, #08090e 0%, #0f1119 30%, #0d0e16 60%, #08090e 100%);
   background-size: 200% 200%;
@@ -372,7 +362,7 @@ button:not(:disabled):active {
   height: 60vh;
   top: -10%;
   left: -10%;
-  background: radial-gradient(ellipse, rgba(245, 158, 11, 0.08), transparent 70%);
+  background: radial-gradient(ellipse, rgba(0, 229, 255, 0.08), transparent 70%);
   animation-delay: 0s;
 }
 
@@ -381,7 +371,7 @@ button:not(:disabled):active {
   height: 50vh;
   bottom: -15%;
   right: -5%;
-  background: radial-gradient(ellipse, rgba(139, 92, 246, 0.06), transparent 70%);
+  background: radial-gradient(ellipse, rgba(255, 78, 190, 0.06), transparent 70%);
   animation-delay: -9s;
 }
 
@@ -481,11 +471,11 @@ button:not(:disabled):active {
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(242, 208, 164, 0.1);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(242, 208, 164, 0.3);
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.3);
   }
 }
 
@@ -616,7 +606,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: 18px;
   border-radius: 50%;
   background: var(--accent-primary);
-  box-shadow: 0 0 10px rgba(242, 208, 164, 0.3);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
   cursor: pointer;
 }
 

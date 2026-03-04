@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Theater, ClipboardCheck, FileText, HeartPulse, X, Menu, LogOut } from "lucide-react";
+import { LayoutDashboard, Theater, ClipboardCheck, FileText, HeartPulse, X, Menu, LogOut, MessageSquareText, ShieldCheck } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/trading-places-simulator-1.png";
 
@@ -31,7 +31,9 @@ export default function Sidebar() {
 
   const links = [
     { path: "/workspace/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { path: "/workspace/disclaimer", label: "Start Simulation", icon: ShieldCheck },
     { path: "/workspace/scenario", label: "Scenario Practice", icon: Theater },
+    { path: "/workspace/debrief", label: "Structured Debrief", icon: MessageSquareText },
     { path: "/workspace/assessment", label: "Assessment", icon: ClipboardCheck },
     { path: "/workspace/report", label: "Report as PDF", icon: FileText },
     { path: "/workspace/pulse", label: "Culture Pulse", icon: HeartPulse },

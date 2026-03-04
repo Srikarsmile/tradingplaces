@@ -81,11 +81,18 @@ export default function Scenario() {
   // Save debrief data for the debrief page
   useEffect(() => {
     if (!is6Signal || !isComplete) return;
+    // Collect voice recording URLs
+    const recordings = {};
+    activeDialogue.lines.forEach((_, idx) => {
+      const rec = voiceRecorder.getRecording(`${activeDialogue.id}-${idx}`);
+      if (rec?.url) recordings[`${activeDialogue.id}-${idx}`] = rec.url;
+    });
     const debriefPayload = {
       scenarioId: activeDialogue.id,
       selections: dialogueSelections,
       signalAverages,
       composite: composite6,
+      recordings,
       timestamp: new Date().toISOString(),
     };
     try {
@@ -93,7 +100,7 @@ export default function Scenario() {
     } catch (e) {
       console.error("Failed to save debrief data", e);
     }
-  }, [is6Signal, isComplete, dialogueSelections, signalAverages, composite6, activeDialogue.id]);
+  }, [is6Signal, isComplete, dialogueSelections, signalAverages, composite6, activeDialogue.id, voiceRecorder]);
 
   useEffect(() => {
     setDialogueIndex(0);
